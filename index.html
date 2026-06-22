@@ -1228,11 +1228,13 @@ function render(){
   updatePreliminaryNotice();
   captureFloorChange();
 }
-// Unified "recently fielded" feed: every model with a release_date in the last N days
-// surfaces here regardless of confidence. Each entry shows its release date + a
-// 'preliminary' tag IF the data backing the current task's score is still thin.
-// Inspired by AA's changelog (artificialanalysis.ai/changelog) and how LMArena marks
-// new entries: surface the release, separately mark confidence.
+// Unified "recently fielded" feed.
+// Two sections in one popover:
+//   A) IN THE DASHBOARD — models from MODELS with release_date in last N days.
+//      Each marked preliminary if the data source backing the current task is thin.
+//   B) DETECTED BUT NOT YET IN DASHBOARD — radar candidates from HF / Epoch / AA
+//      that haven't accumulated enough signal to auto-promote (typically no AA score
+//      yet). Surfaces open-weights releases that hit Hugging Face before AA scores them.
 const FIELDED_WINDOW_DAYS = 30;
 function updatePreliminaryNotice(){
   const task=taskSel();
@@ -1245,9 +1247,11 @@ function updatePreliminaryNotice(){
     const t=Date.parse(rel);
     return !isNaN(t) && t >= cutoffMs;
   }).sort((a,b)=>(b.provenance.release_date||'').localeCompare(a.provenance.release_date||''));
-  if(!fielded.length){el.innerHTML='';return;}
+  const radar=(META.radar||[]);
+  const total=fielded.length + radar.length;
+  if(!total){el.innerHTML='';return;}
   const fmt=iso=>{try{return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch(_){return iso||'—';}};
-  const rows=fielded.map(m=>{
+  const inDashboardRows=fielded.map(m=>{
     const rel=m.provenance.release_date;
     const prelim=isPreliminary(m,task);
     const prelimBadge=prelim?` <span class="tag preview" style="margin-left:6px">preliminary</span>`:'';
@@ -1255,8 +1259,15 @@ function updatePreliminaryNotice(){
     const meta=[fmt(rel), flag, m.provenance.provider].filter(Boolean).join(' · ');
     return `<div style="padding:7px 0;border-bottom:1px solid var(--line)"><div style="display:flex;align-items:center;gap:4px"><b>${m.display}</b>${prelimBadge}</div><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${meta}</div></div>`;
   }).join('');
-  POP_CONTENT.fielded=`<h4>🆕 Recently fielded — last ${FIELDED_WINDOW_DAYS} days</h4><p>Models with a release date in this window. The <span class="tag preview" style="margin:0">preliminary</span> tag marks ones where the data source backing this task's score is still thin (LMArena votes &lt;5000, no AA intel yet, or no salesevals row). Preliminary models are excluded from the recommender top-3.</p>${rows}`;
-  el.innerHTML=` · <span class="warn" data-pop="fielded" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">🆕 ${fielded.length} recently fielded</span>`;
+  const radarRows=radar.map(r=>{
+    const dt=r.release_date?fmt(r.release_date):'—';
+    const intel=r.max_intel!=null?` · intel <b>${r.max_intel}</b>`:'';
+    const srcs=(r.sources||['aa']).map(s=>({aa:'AA',hf:'Hugging Face',epoch:'Epoch'})[s]||s).join(' + ');
+    return `<div style="padding:7px 0;border-bottom:1px solid var(--line)"><b>${r.base}</b><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${r.creator||'unknown'} · released ${dt}${intel} · seen on ${srcs}</div></div>`;
+  }).join('');
+  const sectionB = radar.length ? `<h4 style="margin-top:14px">🛰 Detected upstream — awaiting benchmark data</h4><p>Found in Hugging Face / Epoch / AA's catalog but no full benchmark score yet, so we can't rank them. We'll auto-promote each into the dashboard as soon as AA publishes a score.</p>${radarRows}` : '';
+  POP_CONTENT.fielded=`<h4>🆕 Recently fielded — last ${FIELDED_WINDOW_DAYS} days</h4><p>Models with a release date in this window. The <span class="tag preview" style="margin:0">preliminary</span> tag marks ones where the data source backing this task's score is still thin (LMArena votes &lt;5000, no AA intel yet, or no salesevals row). Preliminary models are excluded from the recommender top-3.</p>${inDashboardRows||'<div style="color:var(--dim)">No new models in dashboard window yet.</div>'}${sectionB}`;
+  el.innerHTML=` · <span class="warn" data-pop="fielded" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">🆕 ${total} recently fielded</span>`;
 }
 function syncMobileSummary(){
   const task=taskSel();

@@ -97,6 +97,14 @@ TRACKED_CREATORS = {"OpenAI", "Anthropic", "Google", "DeepSeek", "Kimi", "Moonsh
 RADAR_INTEL_THRESHOLD = 45
 RADAR_WINDOW_DAYS = 14   # Only flag models released in the last N days — anything older isn't "new"
 
+# Hugging Face Hub orgs we scan for fresh releases. AA picks up most closed-weights
+# releases quickly, but open-weights drops (Llama, Qwen, Mistral, GLM, etc.) often
+# hit HF a week before AA scores them — we want to flag those early.
+HF_TRACKED_ORGS = [
+    "meta-llama","google","mistralai","deepseek-ai","Qwen","zai-org","ZhipuAI",
+    "nvidia","openai-community","xai-org","microsoft","MiniMaxAI","XiaomiMiMo",
+]
+
 # Auto-promotion (Tier 1 — "PREVIEW"): see PROMOTION_POLICY.md
 # When a new model appears in AA from a known creator, auto-include it in models.json
 # with staging:true so it shows up in scatter/table within 24h. Excluded from recommender
@@ -553,9 +561,95 @@ def merge_one(alias, aa_rows, epoch_rows, or_catalog, arena_data, or_usage, hall
     out["last_verified"] = prov.get("last_verified")
     return out
 
+def fetch_hf_recent_releases():
+    """Pull recent HF Hub releases from HF_TRACKED_ORGS. Returns a list of dicts:
+       {hf_id, base, creator (mapped to AA-style name), release_date, downloads, likes}.
+    Cache-first per org — if HF rate-limits or errors out, we use yesterday's snapshot.
+    Filtered to models created within RADAR_WINDOW_DAYS so we never carry stale entries forward."""
+    from datetime import date, timedelta
+    cutoff = (date.today() - timedelta(days=RADAR_WINDOW_DAYS)).isoformat()
+    # HF org slug -> AA-style creator name so radar candidates dedupe with AA entries
+    HF_ORG_TO_CREATOR = {
+        "meta-llama":"Meta", "google":"Google", "mistralai":"Mistral",
+        "deepseek-ai":"DeepSeek", "Qwen":"Alibaba", "zai-org":"Z AI",
+        "ZhipuAI":"Z AI", "nvidia":"NVIDIA", "openai-community":"OpenAI",
+        "xai-org":"xAI", "microsoft":"Microsoft", "MiniMaxAI":"MiniMax",
+        "XiaomiMiMo":"Xiaomi",
+    }
+    all_releases = []
+    for org in HF_TRACKED_ORGS:
+        cache = DATA / f"hf-{org.lower()}.json"
+        url = f"https://huggingface.co/api/models?author={org}&sort=createdAt&direction=-1&limit=20&full=true"
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url), timeout=30) as r:
+                payload = json.loads(r.read().decode())
+            cache.write_text(json.dumps(payload))
+        except Exception as e:
+            if cache.exists():
+                print(f"[hf] {org} fetch failed ({e}); using cache", file=sys.stderr)
+                payload = json.loads(cache.read_text())
+            else:
+                print(f"[hf] {org} fetch failed ({e}); no cache — skipping", file=sys.stderr)
+                continue
+        for m in payload:
+            created = m.get("createdAt", "")[:10]  # ISO date
+            if created < cutoff:
+                continue
+            mid = m.get("id", "")  # e.g. "meta-llama/Llama-4.5-405B"
+            base = mid.split("/")[-1] if "/" in mid else mid
+            # Skip non-LLM artifacts (rough heuristic — chat-LLM repos usually don't have these keywords)
+            tags = " ".join(m.get("tags", [])).lower()
+            if any(k in tags for k in ["audio","speech","image-text","stable-diffusion","controlnet","embedding"]):
+                continue
+            all_releases.append({
+                "hf_id": mid,
+                "base": base,
+                "creator": HF_ORG_TO_CREATOR.get(org, org),
+                "release_date": created,
+                "downloads": m.get("downloads", 0),
+                "likes": m.get("likes", 0),
+            })
+    return all_releases
+
+
+def epoch_radar(epoch_rows):
+    """Scan Epoch for publications in the last RADAR_WINDOW_DAYS days from tracked creators.
+    Returns the same shape as the AA radar so they can be merged."""
+    from datetime import date, timedelta
+    cutoff = (date.today() - timedelta(days=RADAR_WINDOW_DAYS)).isoformat()
+    out = []
+    # Map Epoch's "Organization" string back to TRACKED_CREATORS where possible
+    EPOCH_ORG_TO_CREATOR = {
+        "OpenAI":"OpenAI","Anthropic":"Anthropic","Google":"Google",
+        "Google DeepMind":"Google","DeepMind":"Google","Meta AI":"Meta","Meta":"Meta",
+        "xAI":"xAI","NVIDIA":"NVIDIA","Mistral AI":"Mistral","Mistral":"Mistral",
+        "Cohere":"Cohere","Amazon":"Amazon","Microsoft":"Microsoft",
+        "Alibaba":"Alibaba","Alibaba Group":"Alibaba","Qwen":"Alibaba",
+        "DeepSeek":"DeepSeek","DeepSeek-AI":"DeepSeek","Moonshot AI":"Moonshot",
+        "Zhipu":"Z AI","Zhipu AI":"Z AI","Z AI":"Z AI",
+        "MiniMax":"MiniMax","Xiaomi":"Xiaomi",
+    }
+    for r in epoch_rows:
+        pub = r.get("Publication date", "")[:10]
+        if pub < cutoff or not pub:
+            continue
+        org = (r.get("Organization") or "").strip()
+        creator = EPOCH_ORG_TO_CREATOR.get(org)
+        if not creator or creator not in TRACKED_CREATORS:
+            continue
+        out.append({
+            "base": r.get("Model", ""),
+            "creator": creator,
+            "release_date": pub,
+            "open_weights": r.get("Open model weights?"),
+            "params": r.get("Parameters"),
+        })
+    return out
+
+
 # ── New-model radar ──────────────────────────────────────────────────────────
 
-def new_model_radar(aa_rows):
+def new_model_radar(aa_rows, epoch_rows=None):
     """Flag models >threshold intel from tracked creators that are NEWER than our newest
     tracked model from that same creator (so we surface new drops, not back-catalog)."""
     aliases = ALIASES["models"]
@@ -597,7 +691,39 @@ def new_model_radar(aa_rows):
         if not prev or intel > prev["max_intel"]:
             candidates[b] = {"base": b, "creator": creator, "max_intel": intel,
                              "release_date": rel, "newer_than_our": newest}
-    ranked = sorted(candidates.values(), key=lambda x: (x["release_date"] or "", x["max_intel"]), reverse=True)
+    # Add source attribution to AA candidates
+    for c in candidates.values():
+        c["sources"] = ["aa"]
+    # Merge HF radar — open-weights releases that hit HF before AA scores them
+    try:
+        hf = fetch_hf_recent_releases()
+    except Exception as e:
+        print(f"[radar] HF fetch error: {e}", file=sys.stderr)
+        hf = []
+    for h in hf:
+        b = base_name(h["base"])
+        if b in tracked_bases:
+            continue
+        if b in candidates:
+            candidates[b].setdefault("sources",[]).append("hf")
+            candidates[b].setdefault("hf_id", h["hf_id"])
+        else:
+            candidates[b] = {"base": h["base"], "creator": h["creator"],
+                             "max_intel": None, "release_date": h["release_date"],
+                             "newer_than_our": None, "sources": ["hf"],
+                             "hf_id": h["hf_id"], "hf_downloads": h["downloads"]}
+    # Merge Epoch radar — publications from tracked creators
+    for er in epoch_radar(epoch_rows or []):
+        b = base_name(er["base"])
+        if b in tracked_bases:
+            continue
+        if b in candidates:
+            candidates[b].setdefault("sources",[]).append("epoch")
+        else:
+            candidates[b] = {"base": er["base"], "creator": er["creator"],
+                             "max_intel": None, "release_date": er["release_date"],
+                             "newer_than_our": None, "sources": ["epoch"]}
+    ranked = sorted(candidates.values(), key=lambda x: (x["release_date"] or "", x.get("max_intel") or 0), reverse=True)
     (DATA / "radar.json").write_text(json.dumps({"threshold": RADAR_INTEL_THRESHOLD, "candidates": ranked}, indent=2))
     return ranked
 
@@ -761,7 +887,7 @@ def main():
         for w in row["warnings"]:
             print(f"      ⚠ {alias['canonical']}: {w}", file=sys.stderr)
 
-    radar = new_model_radar(aa_rows)
+    radar = new_model_radar(aa_rows, epoch_rows)
     if radar:
         print(f"\n🛰  NEW-MODEL RADAR — {len(radar)} candidate(s) >{RADAR_INTEL_THRESHOLD} intel not in aliases.json:", file=sys.stderr)
         for c in radar:
