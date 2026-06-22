@@ -94,6 +94,7 @@ PROVIDERS = json.loads((ROOT / "providers.json").read_text())
 # New-model radar config
 TRACKED_CREATORS = {"OpenAI", "Anthropic", "Google", "DeepSeek", "Kimi", "Moonshot", "Alibaba", "Z AI", "Zhipu"}
 RADAR_INTEL_THRESHOLD = 45
+RADAR_WINDOW_DAYS = 14   # Only flag models released in the last N days — anything older isn't "new"
 
 # Auto-promotion (Tier 1 — "PREVIEW"): see PROMOTION_POLICY.md
 # When a new model appears in AA from a known creator, auto-include it in models.json
@@ -528,6 +529,9 @@ def new_model_radar(aa_rows):
         if d and (creator not in tracked_newest or d > tracked_newest[creator]):
             tracked_newest[creator] = d
 
+    # Cutoff for "new" — anything released before this is back-catalog noise, not a fresh drop
+    from datetime import date, timedelta
+    cutoff_str = (date.today() - timedelta(days=RADAR_WINDOW_DAYS)).isoformat()
     candidates = {}
     for r in aa_rows:
         intel = (r.get("evaluations") or {}).get("artificial_analysis_intelligence_index")
@@ -538,6 +542,9 @@ def new_model_radar(aa_rows):
         if b in tracked_bases:
             continue
         rel = r.get("release_date")
+        # Skip undated models and anything older than the RADAR_WINDOW_DAYS cutoff
+        if not rel or rel < cutoff_str:
+            continue
         newest = tracked_newest.get(creator)
         # Only flag if newer than our newest tracked model from this creator (back-catalog = noise).
         if newest and rel and rel <= newest:
