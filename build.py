@@ -105,6 +105,33 @@ PREVIEW_INTEL_THRESHOLD = 35   # below this it's not interesting enough to surfa
 
 # Creator name (as it appears in AA) -> base of providers.json key. We pick the most-recent
 # providers.json entry matching this prefix as the metadata template for the preview model.
+# Backfill country-of-origin when Epoch doesn't supply one. Indexed by the provider
+# string in providers.json (which mirrors the AA `model_creator.name` field). Keeps
+# us from showing "no flag" for Gemini, Qwen, Grok, etc. when Epoch lacks them.
+PROVIDER_TO_COUNTRY = {
+    "OpenAI":   "United States of America",
+    "Anthropic":"United States of America",
+    "Google":   "United States of America",
+    "Meta":     "United States of America",
+    "xAI":      "United States of America",
+    "NVIDIA":   "United States of America",
+    "Amazon":   "United States of America",
+    "DeepSeek": "China",
+    "Alibaba":  "China",
+    "Z AI":     "China",
+    "Z.ai (Zhipu)": "China",
+    "Zhipu":    "China",
+    "Moonshot": "China",
+    "Kimi":     "China",
+    "Tencent":  "China",
+    "MiniMax":  "China",
+    "Xiaomi":   "China",
+    "Baidu":    "China",
+    "Mistral":  "France",
+    "Cohere":   "Canada",
+    "Mistral AI": "France",
+}
+
 CREATOR_TO_PROVIDER_PREFIX = {
     "OpenAI":   "openai-",
     "Anthropic":"anthropic-",
@@ -465,9 +492,12 @@ def merge_one(alias, aa_rows, epoch_rows, or_catalog, arena_data, or_usage, hall
     out["hallucination"] = hallu_data.get(hk) if hk else None
 
     out["capabilities"] = capabilities(or_entry, prov)
+    # Country: prefer Epoch's organization-country field, fall back to PROVIDER_TO_COUNTRY
+    # so models without an Epoch row (newer releases) still get tagged correctly.
+    country = (epoch or {}).get("Country (of organization)") or PROVIDER_TO_COUNTRY.get(prov.get("provider"))
     out["provenance"] = {
         "provider":      prov.get("provider"),
-        "country":       (epoch or {}).get("Country (of organization)"),
+        "country":       country,
         "open_weights":  (epoch or {}).get("Open model weights?"),
         "accessibility": (epoch or {}).get("Model accessibility"),
         "release_date":  (aa or {}).get("release_date") or (epoch or {}).get("Publication date"),

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22T17:05:00+00:00",
+  "generated_at": "2026-06-22T17:19:37+00:00",
   "sources": {
     "aa": {
       "url": "https://artificialanalysis.ai/api/v2/data/llms/models",
@@ -574,7 +574,7 @@
       },
       "provenance": {
         "provider": "Anthropic",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-05-28"
@@ -3100,7 +3100,7 @@
       },
       "provenance": {
         "provider": "Google",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-05-19"
@@ -4044,7 +4044,7 @@
       },
       "provenance": {
         "provider": "DeepSeek",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-04-24"
@@ -4364,7 +4364,7 @@
       },
       "provenance": {
         "provider": "DeepSeek",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-04-24"
@@ -4676,7 +4676,7 @@
       },
       "provenance": {
         "provider": "Alibaba",
-        "country": "",
+        "country": "China",
         "open_weights": "Yes",
         "accessibility": "Open weights (restricted use)",
         "release_date": "2026-04-20"
@@ -6306,7 +6306,7 @@
       },
       "provenance": {
         "provider": "Anthropic",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": null
@@ -6557,7 +6557,7 @@
       },
       "provenance": {
         "provider": "NVIDIA",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-06-04"
@@ -6694,7 +6694,7 @@
       },
       "provenance": {
         "provider": "MiniMax",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-06-01"
@@ -6981,7 +6981,7 @@
       },
       "provenance": {
         "provider": "Alibaba",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-06-01"
@@ -7118,7 +7118,7 @@
       },
       "provenance": {
         "provider": "Cohere",
-        "country": null,
+        "country": "Canada",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-05-20"
@@ -7255,7 +7255,7 @@
       },
       "provenance": {
         "provider": "Alibaba",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-05-19"
@@ -8590,7 +8590,7 @@
       },
       "provenance": {
         "provider": "Alibaba",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-04-22"
@@ -8727,7 +8727,7 @@
       },
       "provenance": {
         "provider": "Meta",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-04-08"
@@ -9026,7 +9026,7 @@
       },
       "provenance": {
         "provider": "xAI",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-04-07"
@@ -9163,7 +9163,7 @@
       },
       "provenance": {
         "provider": "Xiaomi",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-03-27"
@@ -9300,7 +9300,7 @@
       },
       "provenance": {
         "provider": "Xiaomi",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-03-19"
@@ -9593,7 +9593,7 @@
       },
       "provenance": {
         "provider": "MiniMax",
-        "country": null,
+        "country": "China",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-03-18"
@@ -10202,7 +10202,7 @@
       },
       "provenance": {
         "provider": "NVIDIA",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-03-11"
@@ -10484,7 +10484,7 @@
       },
       "provenance": {
         "provider": "xAI",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2026-03-10"
@@ -11215,7 +11215,7 @@
       },
       "provenance": {
         "provider": "Amazon",
-        "country": null,
+        "country": "United States of America",
         "open_weights": null,
         "accessibility": null,
         "release_date": "2025-11-27"
