@@ -880,7 +880,7 @@ async function load(){
   }
   // Radar lives on the SAME line as Data Sources (one logical span; wraps within itself if needed).
   const radarBit=radar?` · <span class="warn" data-pop="radar" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">🛰 ${radar} new model(s) flagged</span>`:'';
-  $('#meta').innerHTML=`<span><span class="ds-prefix">Data Sources:</span> Artificial Analysis · Epoch · OpenRouter · LMArena · salesevals${radarBit}</span>`;
+  $('#meta').innerHTML=`<span><span class="ds-prefix">Data Sources:</span> Artificial Analysis · Epoch · OpenRouter · LMArena · salesevals${radarBit}<span id="meta-preliminary"></span></span>`;
   readState();
   // Seed the floor-undo baseline AFTER readState so the initial loaded value isn't pushed onto the history.
   lastCapturedFloor=$('#floor').value;
@@ -1224,7 +1224,29 @@ function render(){
   $$('.btn[data-cache]').forEach(b=>b.classList.toggle('active',+b.dataset.cache===+$('#cache').value&&+b.dataset.batch===+$('#batch').value));
   renderActiveFeature();renderRecommender();renderScatter();renderFindings();renderTable();renderActiveFilters();
   syncMobileSummary();
+  updatePreliminaryNotice();
   captureFloorChange();
+}
+// Task-aware "N preliminary on <task>" counter next to Data Sources. Click reveals each
+// model with reason (AA Preview / no AA intel / thin LMArena) + release date.
+function updatePreliminaryNotice(){
+  const task=taskSel();
+  const el=document.getElementById('meta-preliminary');
+  if(!el)return;
+  const prelim=MODELS.filter(m=>isPreliminary(m,task));
+  if(!prelim.length){el.innerHTML='';return;}
+  const fmt=iso=>{try{return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch(_){return iso||'—';}};
+  const rows=prelim.map(m=>{
+    const rel=m.provenance&&m.provenance.release_date;
+    const dateLine=rel?` · released ${fmt(rel)}`:'';
+    let reason;
+    if(m.aa_is_preview)reason=`AA labels this <b>Preview</b> (<code>${m.aa_name_raw}</code>)`;
+    else if(m.intelligence_index==null)reason='no AA intelligence data yet';
+    else reason='thin LMArena coverage for this category';
+    return `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>${m.display}</b><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${reason}${dateLine}</div></div>`;
+  }).join('');
+  POP_CONTENT.preliminary=`<h4>🕓 Preliminary on ${TASK_LABEL[task]||task}</h4><p>The data source backing this task's score (see Scoring panel) is thin for these models. Their score may shift as data fills in. Excluded from the recommender top-3.</p>${rows}`;
+  el.innerHTML=` · <span class="warn" data-pop="preliminary" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">🕓 ${prelim.length} preliminary on ${TASK_LABEL[task]||task}</span>`;
 }
 function syncMobileSummary(){
   const task=taskSel();
