@@ -145,13 +145,30 @@
   .legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
 
   /* TABLE */
-  table{width:100%;border-collapse:collapse;font-size:var(--fs-button)}
-  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-  th{color:var(--dim);font-weight:500;font-size:var(--fs-eyebrow);letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+  /* Wrapper provides the horizontal scroll context; sticky cells are scoped to it. */
+  .fc-tablewrap{overflow-x:auto;max-height:70vh;overflow-y:auto;border:1px solid var(--line);border-radius:6px}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:var(--fs-button)}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--panel)}
+  th{color:var(--dim);font-weight:500;font-size:var(--fs-eyebrow);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;position:sticky;top:0;z-index:2}
   th:hover{color:var(--accent)}
+  /* Sticky first column — model name stays visible while scrolling horizontally */
+  #table td:first-child,#table th:first-child{position:sticky;left:0;z-index:3;border-right:1px solid var(--line)}
+  #table th:first-child{z-index:4}
   td.num{text-align:right;font-variant-numeric:tabular-nums}
-  tr.dim{opacity:.3}
-  tr:hover{background:var(--panel2)}
+  tr.dim td{opacity:.3}
+  tbody tr:hover td{background:var(--panel2)}
+  /* In-card task chip — declares scope even when top-of-page chips scroll out of view */
+  .fc-task-chip{display:inline-block;margin-left:8px;padding:2px 8px;background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent);border-radius:10px;font-size:var(--fs-caption);font-weight:500;vertical-align:middle}
+  /* Mobile stacked-row view — hidden by default; replaces table under 780px */
+  .fc-mobile{display:none}
+  .fc-row{padding:11px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:var(--panel)}
+  .fc-row.dim{opacity:.35}
+  .fc-row-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+  .fc-row-n{font-size:var(--fs-body);font-weight:600;color:var(--ink)}
+  .fc-row-s{font-size:var(--fs-metric);font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent)}
+  .fc-row-s small{font-size:var(--fs-caption);color:var(--dim);font-weight:400;margin-left:2px}
+  .fc-row-m{font-size:var(--fs-caption);color:var(--dim);line-height:1.55}
+  .fc-row-m b{color:var(--ink);font-weight:500}
   .tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:var(--fs-eyebrow);font-weight:600}
   .tag.frontier{background:#3a1f23;color:#fca5a5}.tag.value{background:#1c2a40;color:#93c5fd}
   .tag.cheap{background:#1c3327;color:#6ee7b7}.tag.floor{background:#2a2240;color:#c4b5fd}
@@ -298,9 +315,10 @@
     /* Feature chip — compact, allow clear button to fit */
     .af-chip{padding:9px 11px;font-size:var(--fs-caption);gap:8px;flex-wrap:wrap}
     .af-chip .af-clear{font-size:var(--fs-eyebrow);padding:3px 7px}
-    /* Full comparison table already has overflow-x:auto, just shrink type */
-    table{font-size:var(--fs-caption)}
-    th,td{padding:5px 6px}
+    /* Mobile: replace horizontal-scroll table with stacked one-card-per-model list */
+    .fc-tablewrap{display:none}
+    .fc-mobile{display:block}
+    .fc-task-chip{display:block;margin:6px 0 0 0;width:fit-content}
     /* Quartile band cards tighter */
     .floor-band{font-size:var(--fs-caption);padding:7px 9px}
     /* Workload profiler in cost panel — already responsive enough */
@@ -499,11 +517,13 @@
     <div class="card findings"><h2>What this view says</h2><ul id="findings"></ul></div>
 
     <!-- TABLE -->
-    <div class="card" style="overflow-x:auto">
-      <h2>Full comparison</h2>
+    <div class="card" id="fc-card">
+      <h2 id="fc-title">Full comparison <span class="fc-task-chip" id="fc-task-chip"></span></h2>
       <div class="h-sub">Click a header to sort. Rows not matching constraints are dimmed.</div>
       <div class="active-filters" id="active-filters"></div>
-      <table id="table"><thead><tr>
+      <!-- Mobile: stacked one-card-per-model view (table is hidden under 780px) -->
+      <div id="fc-mobile" class="fc-mobile"></div>
+      <div class="fc-tablewrap"><table id="table"><thead><tr>
         <th data-sort="display">Model</th>
         <th data-sort="tier">Tier</th>
         <th class="num" data-sort="_cap">Task score</th>
@@ -521,7 +541,7 @@
         <th data-sort="_vis">Vis</th><th data-sort="_fc">FC</th>
         <th data-sort="provenance.country">Origin</th>
         <th data-sort="policy.train_policy">Train</th>
-      </tr></thead><tbody></tbody></table>
+      </tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 </main>
@@ -920,7 +940,9 @@ document.addEventListener('click',e=>{if(!e.target.closest('.dot'))hideTip();});
 let sortKey='_cap',sortDir=-1;
 function trainTag(p){return p==='no-train-default'?'<span class="tag ok">no-train</span>':p==='trains-by-default'?'<span class="tag bad">trains</span>':'<span class="tag unk">?</span>';}
 function renderTable(){
-  const task=taskSel(),C=constraints(),cF=cacheFrac(),bF=batchFrac(),tb=$('#table tbody');tb.innerHTML='';
+  const task=taskSel(),C=constraints(),cF=cacheFrac(),bF=batchFrac(),tb=$('#table tbody'),mob=$('#fc-mobile');tb.innerHTML='';mob.innerHTML='';
+  // In-card chip: declares active task scope so it's visible even when top-of-page chips scroll out.
+  const chip=$('#fc-task-chip');if(chip)chip.textContent='Task: '+(TASK_LABEL[task]||task);
   const keep=new Set(MODELS.filter(m=>passes(m,C)).map(m=>m.canonical));
   const aug=MODELS.map(m=>{const e=effective(m,cF,bF);const sp=m.openrouter&&m.openrouter.spread;
     return {...m,_cap:capValue(m,task),_eff:e?e.blended:null,_ipd:m.intel_per_dollar,_hostmin:sp?sp.cheapest_in:null,_arena:m.arena?m.arena.elo_overall_sc:null,_scd:m.arena?m.arena.sc_delta:null,_hall:m.hallucination?m.hallucination.hallucination_rate:null,_up:(m.reliability||{}).best_uptime_1d??null,_vis:m.capabilities.vision?1:0,_fc:m.capabilities.function_calling?1:0};});
@@ -942,7 +964,19 @@ function renderTable(){
       <td>${b(m.capabilities.vision)}</td><td>${b(m.capabilities.function_calling)}</td>
       <td>${m.provenance.country?(m.provenance.country.includes('United States')?'US':m.provenance.country.includes('China')?'China':m.provenance.country):'—'}</td>
       <td>${trainTag(m.policy.train_policy)}</td>`;
-    tb.appendChild(tr);}
+    tb.appendChild(tr);
+    // Mobile stacked-row rendering — same data, scannable per row, no horizontal scroll.
+    const dimmed=!keep.has(m.canonical)?' dim':'';
+    const score=m._cap?.toFixed?.(0)??'—';
+    const effTxt=m._eff!=null?'$'+m._eff.toFixed(2)+'/1M':'—';
+    const arenaTxt=m.arena?`Arena #${m.arena.rank}`:'no Arena';
+    const upTxt=m._up!=null?m._up+'% up':'';
+    const hallTxt=m._hall!=null?m._hall+'% hall':'';
+    const origin=m.provenance.country?(m.provenance.country.includes('United States')?'🇺🇸 US':m.provenance.country.includes('China')?'🇨🇳 China':m.provenance.country):'';
+    const meta=[`<b>${effTxt}</b>`,arenaTxt,upTxt,hallTxt,origin].filter(Boolean).join(' · ');
+    mob.insertAdjacentHTML('beforeend',
+      `<div class="fc-row${dimmed}"><div class="fc-row-h"><div class="fc-row-n">${m.display} <span class="tag ${m.tier}" style="font-size:9px;vertical-align:1px">${m.tier}</span></div><div class="fc-row-s">${score}<small>/100</small></div></div><div class="fc-row-m">${meta}</div></div>`);
+  }
 }
 
 // ── findings ──
