@@ -879,7 +879,11 @@ function renderScatter(){
   for(const d of data){
     const ipd=d.m.intel_per_dollar||5, r=Math.min(13,3+Math.sqrt(ipd)*.6);
     const dot=el('circle',{cx:xs(d.x),cy:ys(d.y),r,fill:TIER_COLOR[d.m.tier],stroke:'#000','stroke-width':1.1,class:'dot'+(keep.has(d.m.canonical)?'':' dim')});
-    dot.addEventListener('mousemove',e=>showTip(e,d.m,task)); dot.addEventListener('mouseleave',hideTip); svg.appendChild(dot);
+    dot.style.cursor='pointer';
+    dot.addEventListener('mousemove',e=>showTip(e,d.m,task));
+    dot.addEventListener('mouseleave',hideTip);
+    dot.addEventListener('click',e=>{e.stopPropagation();showTip(e,d.m,task);});
+    svg.appendChild(dot);
     if(keep.has(d.m.canonical)&&(d.m.tier==='frontier'||ipd>30||r>8))svg.appendChild(el('text',{x:xs(d.x)+r+4,y:ys(d.y)+3,class:'dot-label'},d.m.display));
   }
 }
@@ -897,10 +901,21 @@ function showTip(e,m,task){
     +(m.arena?`<div class="r"><span class="l">Arena SC (rank)</span><span>${m.arena.elo_overall_sc} (#${m.arena.rank})${m.arena.low_confidence?' ⚠ low votes':''}</span></div>
        <div class="r"><span class="l">Arena style δ</span><span>${m.arena.sc_delta!=null?(m.arena.sc_delta>0?'+':'')+m.arena.sc_delta:'—'}</span></div>`
      :`<div class="r"><span class="l">Arena</span><span>not in top 100</span></div>`);
-  t.style.opacity=1;t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY+14)+'px';
+  // Show first so we can measure, then clamp into viewport (8px gutter on all sides).
+  t.style.opacity=1;t.style.left='0px';t.style.top='0px';
+  const vw=window.innerWidth,vh=window.innerHeight,gap=8,offset=14;
+  const tw=t.offsetWidth,th=t.offsetHeight;
+  let left=e.clientX+offset, top=e.clientY+offset;
+  if(left+tw+gap>vw)left=Math.max(gap,e.clientX-tw-offset);   // flip to left of cursor
+  if(left<gap)left=gap;
+  if(top+th+gap>vh)top=Math.max(gap,e.clientY-th-offset);     // flip above cursor
+  if(top<gap)top=gap;
+  t.style.left=left+'px';t.style.top=top+'px';
 }
 const b=v=>v===true?'<span class="yes">✓</span>':v===false?'<span class="no">✗</span>':'—';
 const hideTip=()=>$('#tip').style.opacity=0;
+// Tap-outside-to-dismiss for mobile (where mouseleave never fires on touch).
+document.addEventListener('click',e=>{if(!e.target.closest('.dot'))hideTip();});
 
 // ── table ──
 let sortKey='_cap',sortDir=-1;
