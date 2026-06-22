@@ -959,7 +959,17 @@ function renderScatter(){
     const showLabel = keep.has(d.m.canonical) && (isMobile
       ? paretoSet.has(d.m.canonical)
       : (d.m.tier==='frontier'||ipd>30||r>8));
-    if(showLabel)svg.appendChild(el('text',{x:xs(d.x)+r+4,y:ys(d.y)+3,class:'dot-label'},d.m.display));
+    if(showLabel){
+      // Approximate label width (avg ~6px per char at current font-size) to decide if the label
+      // will overflow the right edge of the plot area. If so, flip to left of the dot.
+      const approxW=d.m.display.length*6.2+8;
+      const rightEdge=W-P.r;
+      const fitsRight=xs(d.x)+r+4+approxW <= rightEdge;
+      const attrs=fitsRight
+        ? {x:xs(d.x)+r+4,y:ys(d.y)+3,class:'dot-label'}
+        : {x:xs(d.x)-r-4,y:ys(d.y)+3,class:'dot-label','text-anchor':'end'};
+      svg.appendChild(el('text',attrs,d.m.display));
+    }
   }
 }
 function showTip(e,m,task){
