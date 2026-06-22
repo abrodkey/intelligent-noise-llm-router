@@ -335,9 +335,12 @@
     .active-filters{font-size:var(--fs-caption);padding:8px 10px;line-height:1.7}
     /* Filter chips in the active-filters row stay tiny on mobile */
     .active-filters .af-chip{font-size:var(--fs-eyebrow);padding:2px 6px;display:inline-block}
-    /* Feature card: single-column attrs on very narrow phones */
-    #active-feature.af-chip{padding:11px 12px}
+    /* Feature card: needs top margin so it clears the sticky chip bar above it.
+       Also relative + z-index high so its X close button isn't masked by anything. */
+    #active-feature.af-chip{padding:14px 12px;margin-top:12px;position:relative;z-index:5}
     #active-feature .af-attrs{grid-template-columns:1fr 1fr}
+    /* Bigger touch target for the close button on mobile (≥40px reachable) */
+    #active-feature .af-clear{width:36px;height:36px;font-size:16px}
     /* Mobile: replace horizontal-scroll table with stacked one-card-per-model list */
     .fc-tablewrap{display:none}
     .fc-mobile{display:block}
