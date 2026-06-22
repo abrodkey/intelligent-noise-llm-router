@@ -276,9 +276,12 @@
     header .ttl .freshness{font-size:var(--fs-caption);padding:4px 9px}
     header .hdr-act{width:100%;justify-content:flex-start}
     header .hdr-act button{font-size:var(--fs-button);padding:5px 9px}
-    /* Recommender cards stack vertically — phone screen too narrow for 3 columns */
-    .recs{grid-template-columns:1fr;gap:10px}
-    .rec{padding:12px 14px}
+    /* Recommender cards stack vertically — phone screen too narrow for 3 columns.
+       Gap is 22px because each card has a rank badge (#N cheapest) positioned -9px
+       above its top edge; a tight gap makes the badge visually crash into the
+       previous card and read as uneven spacing. */
+    .recs{grid-template-columns:1fr;gap:22px}
+    .rec{padding:12px 14px;margin-top:0}
     .rec .name{font-size:var(--fs-body)}
     .rec-metric .m-big{font-size:var(--fs-metric)}
     .rec-metric .m-sub{display:none}
