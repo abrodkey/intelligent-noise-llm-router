@@ -829,7 +829,7 @@ function renderRecommender(){
         <div class="rec-metrics">
           <div class="rec-metric ${qBand}">
             <div class="m-lab">Score</div>
-            <div class="m-big">${scTxt}<small>/100</small></div>
+            <div class="m-big">${scTxt}</div>
             <div class="m-sub">${scoreSub}</div>
           </div>
           <div class="rec-metric">
@@ -1007,7 +1007,7 @@ function renderTable(){
     const origin=m.provenance.country?(m.provenance.country.includes('United States')?'🇺🇸 US':m.provenance.country.includes('China')?'🇨🇳 China':m.provenance.country):'';
     const meta=[`<b>${effTxt}</b>`,arenaTxt,upTxt,hallTxt,origin].filter(Boolean).join(' · ');
     mob.insertAdjacentHTML('beforeend',
-      `<div class="fc-row${dimmed}"><div class="fc-row-h"><div class="fc-row-n">${m.display} <span class="tag ${m.tier}" style="font-size:9px;vertical-align:1px">${m.tier}</span></div><div class="fc-row-s">${score}<small>/100</small></div></div><div class="fc-row-m">${meta}</div></div>`);
+      `<div class="fc-row${dimmed}"><div class="fc-row-h"><div class="fc-row-n">${m.display} <span class="tag ${m.tier}" style="font-size:9px;vertical-align:1px">${m.tier}</span></div><div class="fc-row-s">${score}</div></div><div class="fc-row-m">${meta}</div></div>`);
   }
 }
 
