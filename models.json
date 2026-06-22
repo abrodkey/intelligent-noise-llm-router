@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22T17:19:37+00:00",
+  "generated_at": "2026-06-22T17:34:34+00:00",
   "sources": {
     "aa": {
       "url": "https://artificialanalysis.ai/api/v2/data/llms/models",
@@ -450,6 +450,8 @@
       "warnings": [
         "Epoch match not found for 'Claude Opus 4.8'"
       ],
+      "aa_name_raw": "Claude Opus 4.8 (Adaptive Reasoning, Max Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 61.4,
       "coding_index": 56.7,
       "math_index": null,
@@ -743,13 +745,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "claude-sonnet-4.6-reasoning",
       "display": "Claude Sonnet 4.6 (Reasoning)",
       "warnings": [],
+      "aa_name_raw": "Claude Sonnet 4.6 (Adaptive Reasoning, Max Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 51.7,
       "coding_index": 50.9,
       "math_index": null,
@@ -1065,13 +1068,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "claude-sonnet-4.6-fast",
       "display": "Claude Sonnet 4.6 (Non-reasoning)",
       "warnings": [],
+      "aa_name_raw": "Claude Sonnet 4.6 (Non-reasoning, High Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 44.4,
       "coding_index": 46.4,
       "math_index": null,
@@ -1387,13 +1391,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "claude-haiku-4.5",
       "display": "Claude Haiku 4.5",
       "warnings": [],
+      "aa_name_raw": "Claude 4.5 Haiku (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 37.1,
       "coding_index": 32.6,
       "math_index": 83.7,
@@ -1542,13 +1547,14 @@
       "arena": null,
       "arena_categories": {},
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": true
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.5",
       "display": "GPT-5.5 (high)",
       "warnings": [],
+      "aa_name_raw": "GPT-5.5 (high)",
+      "aa_is_preview": false,
       "intelligence_index": 58.9,
       "coding_index": 58.5,
       "math_index": null,
@@ -1864,13 +1870,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.5-fast",
       "display": "GPT-5.5 Instant",
       "warnings": [],
+      "aa_name_raw": "GPT-5.5 Instant (May 2026)",
+      "aa_is_preview": false,
       "intelligence_index": 41.8,
       "coding_index": 45.1,
       "math_index": null,
@@ -2180,13 +2187,14 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.4",
       "display": "GPT-5.4 (xhigh)",
       "warnings": [],
+      "aa_name_raw": "GPT-5.4 (xhigh)",
+      "aa_is_preview": false,
       "intelligence_index": 56.8,
       "coding_index": 57.2,
       "math_index": null,
@@ -2502,13 +2510,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.4-mini",
       "display": "GPT-5.4 mini",
       "warnings": [],
+      "aa_name_raw": "GPT-5.4 mini (xhigh)",
+      "aa_is_preview": false,
       "intelligence_index": 48.9,
       "coding_index": 51.5,
       "math_index": null,
@@ -2818,13 +2827,14 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.4-nano",
       "display": "GPT-5.4 nano",
       "warnings": [],
+      "aa_name_raw": "GPT-5.4 nano (xhigh)",
+      "aa_is_preview": false,
       "intelligence_index": 44,
       "coding_index": 43.9,
       "math_index": null,
@@ -2967,8 +2977,7 @@
       "arena": null,
       "arena_categories": {},
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": true
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gemini-3.5-flash",
@@ -2976,6 +2985,8 @@
       "warnings": [
         "Epoch match not found for 'Gemini 3.5 Flash'"
       ],
+      "aa_name_raw": "Gemini 3.5 Flash (high)",
+      "aa_is_preview": false,
       "intelligence_index": 55.3,
       "coding_index": 45,
       "math_index": null,
@@ -3269,13 +3280,14 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gemini-3.1-pro",
       "display": "Gemini 3.1 Pro",
       "warnings": [],
+      "aa_name_raw": "Gemini 3.1 Pro Preview",
+      "aa_is_preview": true,
       "intelligence_index": 57.2,
       "coding_index": 55.5,
       "math_index": null,
@@ -3591,13 +3603,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "kimi-k2.6",
       "display": "Kimi K2.6",
       "warnings": [],
+      "aa_name_raw": "Kimi K2.6",
+      "aa_is_preview": false,
       "intelligence_index": 53.9,
       "coding_index": 47.1,
       "math_index": null,
@@ -3907,8 +3920,7 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "deepseek-v4-pro",
@@ -3916,6 +3928,8 @@
       "warnings": [
         "Epoch match not found for 'DeepSeek V4 Pro'"
       ],
+      "aa_name_raw": "DeepSeek V4 Pro (Reasoning, Max Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 51.5,
       "coding_index": 47.5,
       "math_index": null,
@@ -4231,8 +4245,7 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "deepseek-v4-flash",
@@ -4240,6 +4253,8 @@
       "warnings": [
         "Epoch match not found for 'DeepSeek V4 Flash'"
       ],
+      "aa_name_raw": "DeepSeek V4 Flash (Reasoning, Max Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 46.5,
       "coding_index": 38.7,
       "math_index": null,
@@ -4545,13 +4560,14 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "qwen-3.6-max",
       "display": "Qwen3.6 Max",
       "warnings": [],
+      "aa_name_raw": "Qwen3.6 Max Preview",
+      "aa_is_preview": true,
       "intelligence_index": 51.8,
       "coding_index": 44.9,
       "math_index": null,
@@ -4839,13 +4855,14 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "glm-5.1",
       "display": "GLM-5.1",
       "warnings": [],
+      "aa_name_raw": "GLM-5.1 (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 51.4,
       "coding_index": 43.4,
       "math_index": null,
@@ -5145,8 +5162,7 @@
         }
       },
       "salesevals": null,
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.4-high",
@@ -5154,6 +5170,8 @@
       "warnings": [
         "AA match not found for 'GPT-5.4 (high)'"
       ],
+      "aa_name_raw": "GPT-5.4 (high)",
+      "aa_is_preview": false,
       "intelligence_index": null,
       "coding_index": null,
       "math_index": null,
@@ -5441,13 +5459,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.5-xhigh",
       "display": "GPT-5.5 (xhigh)",
       "warnings": [],
+      "aa_name_raw": "GPT-5.5 (xhigh)",
+      "aa_is_preview": false,
       "intelligence_index": 60.2,
       "coding_index": 59.1,
       "math_index": null,
@@ -5592,13 +5611,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": true
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "gpt-5.5-none",
       "display": "GPT-5.5 (none)",
       "warnings": [],
+      "aa_name_raw": "GPT-5.5 (Non-reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 40.9,
       "coding_index": 48.6,
       "math_index": null,
@@ -5910,13 +5930,14 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "claude-opus-4.7-max",
       "display": "Claude Opus 4.7 (max)",
       "warnings": [],
+      "aa_name_raw": "Claude Opus 4.7 (Adaptive Reasoning, Max Effort)",
+      "aa_is_preview": false,
       "intelligence_index": 57.3,
       "coding_index": 52.5,
       "math_index": null,
@@ -6212,8 +6233,7 @@
         "n": 30,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": false
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "claude-fable-5-high",
@@ -6222,6 +6242,8 @@
         "AA match not found for 'Claude Fable 5 (high)'",
         "Epoch match not found for 'Claude Fable 5'"
       ],
+      "aa_name_raw": "Claude Fable 5 (high)",
+      "aa_is_preview": false,
       "intelligence_index": null,
       "coding_index": null,
       "math_index": null,
@@ -6445,8 +6467,7 @@
         "n": 50,
         "total_in_test": 24
       },
-      "last_verified": "2026-06-15",
-      "preliminary": true
+      "last_verified": "2026-06-15"
     },
     {
       "canonical": "nemotron-3-ultra-550b-a55b",
@@ -6455,6 +6476,8 @@
         "Epoch match not found for 'Nemotron 3 Ultra 550B A55B'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Nemotron 3 Ultra 550B A55B (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 47.7,
       "coding_index": 37.6,
       "math_index": null,
@@ -6582,8 +6605,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "minimax-m3",
@@ -6592,6 +6614,8 @@
         "Epoch match not found for 'MiniMax-M3'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiniMax-M3",
+      "aa_is_preview": false,
       "intelligence_index": 54.7,
       "coding_index": 43.4,
       "math_index": null,
@@ -6869,8 +6893,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "qwen3.7-plus",
@@ -6879,6 +6902,8 @@
         "Epoch match not found for 'Qwen3.7 Plus'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Qwen3.7 Plus",
+      "aa_is_preview": false,
       "intelligence_index": 53.3,
       "coding_index": 46.5,
       "math_index": null,
@@ -7006,8 +7031,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "command-a",
@@ -7016,6 +7040,8 @@
         "Epoch match not found for 'Command A+'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Command A+",
+      "aa_is_preview": false,
       "intelligence_index": 37.2,
       "coding_index": 29.3,
       "math_index": null,
@@ -7143,8 +7169,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "qwen3.7-max",
@@ -7153,6 +7178,8 @@
         "Epoch match not found for 'Qwen3.7 Max'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Qwen3.7 Max",
+      "aa_is_preview": false,
       "intelligence_index": 56.6,
       "coding_index": 50.1,
       "math_index": null,
@@ -7280,8 +7307,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "grok-4.3",
@@ -7289,6 +7315,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4.3 (medium)",
+      "aa_is_preview": false,
       "intelligence_index": 48.8,
       "coding_index": 35.1,
       "math_index": null,
@@ -7584,8 +7612,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "mistral-medium-3.5",
@@ -7593,6 +7620,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Mistral Medium 3.5",
+      "aa_is_preview": false,
       "intelligence_index": 39.2,
       "coding_index": 35.4,
       "math_index": null,
@@ -7870,8 +7899,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "mimo-v2.5-pro",
@@ -7879,6 +7907,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2.5-Pro",
+      "aa_is_preview": false,
       "intelligence_index": 53.8,
       "coding_index": 45.5,
       "math_index": null,
@@ -8174,8 +8204,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "mimo-v2.5",
@@ -8183,6 +8212,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2.5",
+      "aa_is_preview": false,
       "intelligence_index": 49,
       "coding_index": 42.1,
       "math_index": null,
@@ -8478,8 +8509,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "qwen3.6-27b",
@@ -8488,6 +8518,8 @@
         "Epoch match not found for 'Qwen3.6 27B'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Qwen3.6 27B (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 45.8,
       "coding_index": 36.5,
       "math_index": null,
@@ -8615,8 +8647,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "muse-spark",
@@ -8625,6 +8656,8 @@
         "Epoch match not found for 'Muse Spark'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Muse Spark",
+      "aa_is_preview": false,
       "intelligence_index": 52.2,
       "coding_index": 47.5,
       "math_index": null,
@@ -8914,8 +8947,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "grok-4.20-0309-v2",
@@ -8924,6 +8956,8 @@
         "Epoch match not found for 'Grok 4.20 0309 v2'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4.20 0309 v2 (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 49.3,
       "coding_index": 40.5,
       "math_index": null,
@@ -9051,8 +9085,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "mimo-v2-omni-0327",
@@ -9061,6 +9094,8 @@
         "Epoch match not found for 'MiMo-V2-Omni-0327'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2-Omni-0327",
+      "aa_is_preview": false,
       "intelligence_index": 44.9,
       "coding_index": 36.9,
       "math_index": null,
@@ -9188,8 +9223,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "mimo-v2-omni",
@@ -9198,6 +9232,8 @@
         "Epoch match not found for 'MiMo-V2-Omni'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2-Omni",
+      "aa_is_preview": false,
       "intelligence_index": 43.4,
       "coding_index": 35.5,
       "math_index": null,
@@ -9481,8 +9517,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "minimax-m2.7",
@@ -9491,6 +9526,8 @@
         "Epoch match not found for 'MiniMax-M2.7'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiniMax-M2.7",
+      "aa_is_preview": false,
       "intelligence_index": 49.6,
       "coding_index": 41.9,
       "math_index": null,
@@ -9786,8 +9823,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "mimo-v2-pro",
@@ -9795,6 +9831,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2-Pro",
+      "aa_is_preview": false,
       "intelligence_index": 49.2,
       "coding_index": 41.4,
       "math_index": null,
@@ -10090,8 +10128,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": false
+      }
     },
     {
       "canonical": "nvidia-nemotron-3-super-120b-a12b",
@@ -10100,6 +10137,8 @@
         "Epoch match not found for 'NVIDIA Nemotron 3 Super 120B A12B'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "NVIDIA Nemotron 3 Super 120B A12B (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 36,
       "coding_index": 31.2,
       "math_index": null,
@@ -10372,8 +10411,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "grok-4.20-0309",
@@ -10382,6 +10420,8 @@
         "Epoch match not found for 'Grok 4.20 0309'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4.20 0309 (Non-reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 29.7,
       "coding_index": 25.4,
       "math_index": null,
@@ -10509,8 +10549,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "minimax-m2.5",
@@ -10518,6 +10557,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiniMax-M2.5",
+      "aa_is_preview": false,
       "intelligence_index": 41.9,
       "coding_index": 37.4,
       "math_index": null,
@@ -10813,8 +10854,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "minimax-m2.1",
@@ -10822,6 +10862,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiniMax-M2.1",
+      "aa_is_preview": false,
       "intelligence_index": 39.4,
       "coding_index": 32.8,
       "math_index": 82.7,
@@ -10955,8 +10997,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "mimo-v2-flash",
@@ -10964,6 +11005,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiMo-V2-Flash (Non-reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 30.3,
       "coding_index": 25.8,
       "math_index": 67.7,
@@ -11097,8 +11140,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "nova-2.0-pro-preview",
@@ -11107,6 +11149,8 @@
         "Epoch match not found for 'Nova 2.0 Pro Preview'",
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Nova 2.0 Pro Preview (medium)",
+      "aa_is_preview": true,
       "intelligence_index": 35.7,
       "coding_index": 30.4,
       "math_index": 89,
@@ -11240,8 +11284,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "grok-4.1-fast",
@@ -11249,6 +11292,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4.1 Fast (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 38.6,
       "coding_index": 30.9,
       "math_index": 89.3,
@@ -11382,8 +11427,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "minimax-m2",
@@ -11391,6 +11435,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "MiniMax-M2",
+      "aa_is_preview": false,
       "intelligence_index": 36.1,
       "coding_index": 29.2,
       "math_index": 78.3,
@@ -11668,8 +11714,7 @@
           "aa",
           "arena"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "grok-4-fast",
@@ -11677,6 +11722,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4 Fast (Reasoning)",
+      "aa_is_preview": false,
       "intelligence_index": 35.1,
       "coding_index": 27.4,
       "math_index": 89.7,
@@ -11810,8 +11857,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     },
     {
       "canonical": "grok-4",
@@ -11819,6 +11865,8 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
+      "aa_name_raw": "Grok 4",
+      "aa_is_preview": false,
       "intelligence_index": 41.5,
       "coding_index": 40.5,
       "math_index": 92.7,
@@ -11952,8 +12000,7 @@
         "data_coverage": [
           "aa"
         ]
-      },
-      "preliminary": true
+      }
     }
   ]
 }

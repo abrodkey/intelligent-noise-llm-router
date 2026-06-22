@@ -749,6 +749,28 @@ function taskQuartiles(task){
 
 const taskSel=()=>document.querySelector('input[name=task]:checked').value;
 
+// Source-aware preliminary check. Returns TRUE when the data source backing THIS task's
+// score is too thin/preliminary to trust. A model can be settled for AA-scored tasks
+// (coding, research) but preliminary for LMArena-scored chat — depends on which signal
+// drives the current score.
+function isPreliminary(m, task){
+  // Sales coaching: real-call score from salesevals.com.
+  if(task === 'sales_coaching') return !m.salesevals;
+  // Tasks where the score IS an LMArena Elo (overall chat, writing, or industry verticals).
+  if(ARENA_PREFERRED_TASKS.has(task) || ARENA_ONLY.has(task)) {
+    const catSlug = ARENA_CAT_FOR_TASK[task];
+    if(catSlug && m.arena_categories && m.arena_categories[catSlug]){
+      const cat = m.arena_categories[catSlug];
+      return (cat.votes||0) < 5000;
+    }
+    return !m.arena || m.arena.low_confidence;
+  }
+  // Everything else uses AA evaluations. Preliminary if AA names it a Preview model
+  // (e.g. 'Gemini 3.1 Pro Preview') or if intelligence data is missing.
+  if(m.aa_is_preview) return true;
+  return m.intelligence_index == null;
+}
+
 // Country-of-origin display: flag + ISO two-letter code. Returns "" for unknown.
 function flagFor(country){
   if(!country)return '';
@@ -872,7 +894,7 @@ function renderRecommender(){
   // Recommender top-3 excludes PRELIMINARY models — their LMArena signal is thin (no rank
   // or <5000 votes), so the score may shift as community votes accumulate. They still
   // appear in scatter + table so users can see them, just not as routing recommendations.
-  const scored=MODELS.filter(m=>!m.preliminary && passes(m,C)).map(m=>({m,cap:capValue(m,task),eff:effective(m,cF,bF)}))
+  const scored=MODELS.filter(m=>!isPreliminary(m,task) && passes(m,C)).map(m=>({m,cap:capValue(m,task),eff:effective(m,cF,bF)}))
                      .filter(x=>x.cap!=null&&x.eff!=null);
   const frontier=scored.slice().sort((a,b)=>b.cap-a.cap)[0];
   const clearing=scored.filter(x=>x.cap>=floor).sort((a,b)=>a.eff.blended-b.eff.blended);
@@ -1099,12 +1121,16 @@ function renderTable(){
   const chip=$('#fc-task-chip');if(chip)chip.textContent='Task: '+(TASK_LABEL[task]||task);
   const srcEl=$('#fc-score-src');if(srcEl)srcEl.innerHTML=`Scored by <b>${scoreSourceLabel(task)}</b>`;
   const keep=new Set(MODELS.filter(m=>passes(m,C)).map(m=>m.canonical));
-  const aug=MODELS.map(m=>{const e=effective(m,cF,bF);const sp=m.openrouter&&m.openrouter.spread;
+  // Sales coaching pulls only from salesevals.com — models without salesevals data have no
+  // signal on this task, so hide them from the table entirely rather than show 20 blank rows.
+  const tablePool = task === 'sales_coaching' ? MODELS.filter(m => m.salesevals) : MODELS;
+  const aug=tablePool.map(m=>{const e=effective(m,cF,bF);const sp=m.openrouter&&m.openrouter.spread;
     return {...m,_cap:capValue(m,task),_eff:e?e.blended:null,_ipd:m.intel_per_dollar,_hostmin:sp?sp.cheapest_in:null,_arena:m.arena?m.arena.elo_overall_sc:null,_scd:m.arena?m.arena.sc_delta:null,_hall:m.hallucination?m.hallucination.hallucination_rate:null,_up:(m.reliability||{}).best_uptime_1d??null,_vis:m.capabilities.vision?1:0,_fc:m.capabilities.function_calling?1:0};});
   aug.sort((a,b)=>{const av=pick(a,sortKey)??-1e9,bv=pick(b,sortKey)??-1e9;return typeof av==='string'?sortDir*av.localeCompare(bv):sortDir*(av-bv);});
   for(const m of aug){const tr=document.createElement('tr');if(!keep.has(m.canonical))tr.classList.add('dim');
     const sp=m.openrouter&&m.openrouter.spread;
-    tr.innerHTML=`<td>${m.display}${m.preliminary?' <span class="tag preview" title="Preliminary — LMArena rank is thin (no rank or <5000 votes). Score may shift as community votes accumulate. Excluded from recommender top-3.">preliminary</span>':''}</td><td><span class="tag ${m.tier}">${m.tier}</span></td>
+    const prelimNow=isPreliminary(m,task);
+    tr.innerHTML=`<td>${m.display}${prelimNow?' <span class="tag preview" title="Preliminary — the data source backing this task\'s score (see Scoring panel) is thin for this model. Excluded from recommender top-3.">preliminary</span>':''}</td><td><span class="tag ${m.tier}">${m.tier}</span></td>
       <td class="num">${m._cap?.toFixed?.(0)??'—'}</td><td class="num">${m.intelligence_index??'—'}</td>
       <td class="num">${m._eff!=null?'$'+m._eff.toFixed(2):'—'}</td>
       <td class="num">${pick(m,'cost.direct_blended_3_to_1')??'—'}</td>
@@ -1129,7 +1155,7 @@ function renderTable(){
     const hallTxt=m._hall!=null?m._hall+'% hall':'';
     const origin=flagFor(m.provenance.country);
     const meta=[`<b>${effTxt}</b>`,arenaTxt,upTxt,hallTxt,origin].filter(Boolean).join(' · ');
-    const previewBadge=m.preliminary?`<span class="tag preview" title="Preliminary — LMArena rank is thin (no rank or <5000 votes). Score may shift as community votes accumulate. Excluded from recommender top-3." style="flex:0 0 auto;margin-left:4px">preliminary</span>`:'';
+    const previewBadge=isPreliminary(m,task)?`<span class="tag preview" title="Preliminary — the data source backing this task's score (see Scoring panel) is thin for this model. Excluded from recommender top-3." style="flex:0 0 auto;margin-left:4px">preliminary</span>`:'';
     mob.insertAdjacentHTML('beforeend',
       `<div class="fc-row${dimmed}"><div class="fc-row-h"><div class="fc-row-n"><span class="fc-row-name" title="${m.display}">${m.display}</span><span class="tag ${m.tier}" style="flex:0 0 auto">${m.tier}</span>${previewBadge}</div><div class="fc-row-s">${score}</div></div><div class="fc-row-m">${meta}</div></div>`);
   }

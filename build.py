@@ -434,6 +434,11 @@ def merge_one(alias, aa_rows, epoch_rows, or_catalog, arena_data, or_usage, hall
     arena = arena_data.get(alias["arena_name"], {})
 
     out = {"canonical": alias["canonical"], "display": alias["display"], "warnings": []}
+    # AA flags preliminary/pre-release models with 'Preview' in the name (e.g. 'Gemini 3.1 Pro Preview').
+    # Surface that so the UI can decide whether the score is settled for an AA-driven task.
+    aa_raw_name = (aa or {}).get("name", "") or alias.get("aa_name", "")
+    out["aa_name_raw"] = aa_raw_name
+    out["aa_is_preview"] = "preview" in aa_raw_name.lower()
     if not aa:       out["warnings"].append(f"AA match not found for '{alias['aa_name']}'")
     if not epoch:    out["warnings"].append(f"Epoch match not found for '{alias['epoch_name']}'")
     if not prov:     out["warnings"].append(f"Provider row missing for '{alias['provider_key']}'")
@@ -773,14 +778,10 @@ def main():
             print(n, file=sys.stderr)
     merged.extend(previews)
 
-    # Unified "preliminary" flag — applied across ALL models (tracked + auto-promoted).
-    # A model is preliminary when its LMArena signal is thin: no rank, or low_confidence
-    # (<5000 votes). This is LMArena's own terminology — "pre-release testing, scores may
-    # shift as community prompts and votes evolve". Frees us from the binary 'staging' flag
-    # which conflated 'we just discovered it' with 'we don't trust its rank yet'.
-    for m in merged:
-        arena = m.get("arena") or {}
-        m["preliminary"] = (not arena) or arena.get("low_confidence", True)
+    # Note: "preliminary" status is now computed PER TASK in the UI, not as a static
+    # field on the model. See isPreliminary() in index.html — a model can be settled
+    # for AA-driven tasks (coding, research) but preliminary for LMArena chat,
+    # depending on which data source backs each task's score.
 
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
