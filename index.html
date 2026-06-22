@@ -1388,7 +1388,7 @@ function showPop(key,trigger){
   $('#pop-body').innerHTML=c;
   pop.classList.add('on');
   // Radar uses the warn (yellow) palette to match its trigger link colour.
-  pop.classList.toggle('warn',key==='radar');
+  pop.classList.toggle('warn',key==='radar'||key==='fielded');
   popKey=key;
   const r=trigger.getBoundingClientRect();
   let left=r.right+10, top=r.top-5;
