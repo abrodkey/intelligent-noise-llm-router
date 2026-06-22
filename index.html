@@ -1001,8 +1001,7 @@ function renderTable(){
     const dimmed=!keep.has(m.canonical)?' dim':'';
     const score=m._cap?.toFixed?.(0)??'—';
     const effTxt=m._eff!=null?'$'+m._eff.toFixed(2)+'/1M':'—';
-    // Arena gets an explicit "(human pref)" tag so users don't expect it to track the task score.
-    const arenaTxt=m.arena?`Arena #${m.arena.rank} <span style="color:var(--dim);font-size:9.5px">(human pref)</span>`:'';
+    const arenaTxt=m.arena?`Arena #${m.arena.rank}`:'';
     const upTxt=m._up!=null?m._up+'% up':'';
     const hallTxt=m._hall!=null?m._hall+'% hall':'';
     const origin=m.provenance.country?(m.provenance.country.includes('United States')?'🇺🇸 US':m.provenance.country.includes('China')?'🇨🇳 China':m.provenance.country):'';
