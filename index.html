@@ -823,8 +823,17 @@ async function load(){
   const lastUpdated=fmt(d.generated_at.slice(0,10));
   $('#freshness').innerHTML=`<span class="dot"></span><span>Auto-refreshed daily · Data last updated <b>${lastUpdated}</b></span>`;
   const salesDateBit=salesSrc.snapshot_date?' (snapshot '+fmt(salesSrc.snapshot_date)+')':'';
+  // Build a clickable popover listing the flagged models so users can see what they are.
+  if(radar){
+    const rows=d.radar.map(r=>{
+      const dt=r.release_date?fmt(r.release_date):'—';
+      const intel=r.max_intel!=null?` · intel <b>${r.max_intel}</b>`:'';
+      return `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>${r.base}</b><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${r.creator||'unknown'} · released ${dt}${intel}</div></div>`;
+    }).join('');
+    POP_CONTENT.radar=`<h4>🛰 New models on the radar</h4><p>These models appeared in upstream sources (Artificial Analysis, OpenRouter, LMArena) but aren't wired into this dashboard yet. Add them to <code>aliases.json</code> + <code>providers.json</code> to surface them.</p>${rows}`;
+  }
   // Radar lives on the SAME line as Data Sources (one logical span; wraps within itself if needed).
-  const radarBit=radar?` · <span class="warn">🛰 ${radar} new model(s) flagged</span>`:'';
+  const radarBit=radar?` · <span class="warn" data-pop="radar" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">🛰 ${radar} new model(s) flagged</span>`:'';
   $('#meta').innerHTML=`<span><span class="ds-prefix">Data Sources:</span> Artificial Analysis · Epoch · OpenRouter · LMArena · salesevals${radarBit}</span>`;
   readState();
   // Seed the floor-undo baseline AFTER readState so the initial loaded value isn't pushed onto the history.
