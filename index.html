@@ -966,7 +966,7 @@ function renderTable(){
   const task=taskSel(),C=constraints(),cF=cacheFrac(),bF=batchFrac(),tb=$('#table tbody'),mob=$('#fc-mobile');tb.innerHTML='';mob.innerHTML='';
   // In-card chip: declares active task scope so it's visible even when top-of-page chips scroll out.
   const chip=$('#fc-task-chip');if(chip)chip.textContent='Task: '+(TASK_LABEL[task]||task);
-  const srcEl=$('#fc-score-src');if(srcEl)srcEl.innerHTML=`Scored by <b>${scoreSourceLabel(task)}</b> · all rows below ranked on this metric.`;
+  const srcEl=$('#fc-score-src');if(srcEl)srcEl.innerHTML=`Scored by <b>${scoreSourceLabel(task)}</b>`;
   const keep=new Set(MODELS.filter(m=>passes(m,C)).map(m=>m.canonical));
   const aug=MODELS.map(m=>{const e=effective(m,cF,bF);const sp=m.openrouter&&m.openrouter.spread;
     return {...m,_cap:capValue(m,task),_eff:e?e.blended:null,_ipd:m.intel_per_dollar,_hostmin:sp?sp.cheapest_in:null,_arena:m.arena?m.arena.elo_overall_sc:null,_scd:m.arena?m.arena.sc_delta:null,_hall:m.hallucination?m.hallucination.hallucination_rate:null,_up:(m.reliability||{}).best_uptime_1d??null,_vis:m.capabilities.vision?1:0,_fc:m.capabilities.function_calling?1:0};});
