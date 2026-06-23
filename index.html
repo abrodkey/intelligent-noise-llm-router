@@ -1577,23 +1577,24 @@ const TAB_HOW=()=>{
 const TAB_LEVELS=()=>{
   const task=taskSel(), q=taskQuartiles(task);
   if(!q)return `<h4>What scores mean for "${TASK_LABEL[task]||task}"</h4><p style="color:var(--warn)">Not enough scored models for this task yet (need at least 4 to compute quartiles).</p>`;
-  // Models in each band, named for the dashboard
+  // Exactly the 3 bands the recommender's scoreBand() uses to color cards:
+  //   score ≥ q3  → top 25%      → mint   (--accent)
+  //   q2 ≤ score < q3 → 50th–75th pct → white (--ink)
+  //   score < q2  → bottom half  → amber  (--warn)
   const top=q.items.filter(x=>x.score>=q.q3).map(x=>x.m.display);
-  const upperMid=q.items.filter(x=>x.score>=q.q2&&x.score<q.q3).map(x=>x.m.display);
-  const lowerMid=q.items.filter(x=>x.score>=q.q1&&x.score<q.q2).map(x=>x.m.display);
-  const bottom=q.items.filter(x=>x.score<q.q1).map(x=>x.m.display);
+  const mid=q.items.filter(x=>x.score>=q.q2&&x.score<q.q3).map(x=>x.m.display);
+  const bottom=q.items.filter(x=>x.score<q.q2).map(x=>x.m.display);
   const bands=[
     {label:`Top 25% — score ≥ ${q.q3.toFixed(0)}`,color:'var(--accent)',body:'Strongest models for this task. Pick when stakes are high and quality matters more than cost.',examples:top},
-    {label:`Upper-middle — ${q.q2.toFixed(0)} to ${q.q3.toFixed(0)}`,color:'var(--info)',body:'Solid mid-tier performers — usually the value sweet spot for customer-facing GTM work.',examples:upperMid},
-    {label:`Lower-middle — ${q.q1.toFixed(0)} to ${q.q2.toFixed(0)}`,color:'var(--cheap)',body:'Good enough for moderate-stakes tasks; check per-task data for your specific use case.',examples:lowerMid},
-    {label:`Bottom 25% — score &lt; ${q.q1.toFixed(0)}`,color:'var(--warn)',body:'Floor tier for this specific task. Use only when occasional misses are acceptable and rock-bottom cost matters.',examples:bottom},
+    {label:`Upper-middle — ${q.q2.toFixed(0)} to ${q.q3.toFixed(0)}`,color:'var(--ink)',body:'Above the median but below the top quartile — usually the value sweet spot for customer-facing GTM work.',examples:mid},
+    {label:`Bottom half — score &lt; ${q.q2.toFixed(0)}`,color:'var(--warn)',body:'At or below the median for this task. Fine for moderate/low-stakes work or when rock-bottom cost matters — check the per-task score first.',examples:bottom},
   ];
   return `<h4>What scores mean for "${TASK_LABEL[task]||task}"</h4>
     <p style="color:var(--warn);font-size:var(--fs-button);background:var(--panel2);border-left:3px solid var(--warn);padding:9px 11px;border-radius:4px;margin:8px 0 14px;line-height:1.5">⚠ <b>Score scales differ by task.</b> Overall intelligence tops out near 60 in practice; data synthesis tops out near 90; sales coaching is compressed between 80–92 because every tested model is decent. The bands below are <b>quartiles within the tracked dataset for THIS task</b>, not absolute quality thresholds — they update automatically as data shifts.</p>
     <p style="font-size:var(--fs-button);color:var(--dim)">Current distribution for ${TASK_LABEL[task]||task}: <b style="color:var(--ink)">min ${q.min.toFixed(0)} · median ${q.q2.toFixed(0)} · max ${q.max.toFixed(0)}</b>, across ${q.items.length} tracked models with data on this task.</p>
     ${bands.map(b=>`<div class="floor-band" style="border-color:${b.color}"><b>${b.label}</b>${b.body}<div style="color:var(--dim);font-size:var(--fs-caption);margin-top:4px">Examples: ${b.examples.length?b.examples.join(', '):'<i>—</i>'}</div></div>`).join('')}
     <h4>How to read the bands</h4>
-    <p>The recommender card’s <b>score color</b> uses the same quartile logic — mint = top 25%, white = upper-half, warn-amber = lower-half. Same model can be mint on one task and amber on another (e.g., DeepSeek V4 Flash is bottom-quartile overall but top-quartile on data synthesis). Always check the per-task score for the bucket you actually care about.</p>`;
+    <p>The recommender card’s <b>score color</b> uses these exact 3 bands — <b style="color:var(--accent)">mint</b> = top 25%, <b style="color:var(--ink)">white</b> = upper-middle (median to top quartile), <b style="color:var(--warn)">amber</b> = bottom half. Same model can be mint on one task and amber on another (e.g., DeepSeek V4 Flash is bottom-half overall but top-25% on data synthesis). Always check the per-task score for the bucket you actually care about.</p>`;
 };
 const TAB_AGENTIC=()=>`<h4>What is "agentic scoring"?</h4>
   <p>Standard LLM benchmarks (MMLU, GPQA, HumanEval, etc.) test isolated language tasks: answer this question, complete this code. They don’t measure whether a model can <b>run a multi-step workflow</b> — pick a tool, call it, recover from errors, and finish a real job. That’s what agentic scoring captures.</p>
