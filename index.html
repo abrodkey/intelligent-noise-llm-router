@@ -119,7 +119,9 @@
   #floorV::-webkit-inner-spin-button,#floorV::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   #floorV:hover{border-bottom-color:var(--accent);color:var(--accent)}
   #floorV:focus{border-bottom-color:var(--accent);outline:none;color:var(--accent)}
-  .recs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  /* auto-fit so cards wrap instead of overflowing when the content column is narrow
+     (the 300px sidebar + a mid-width viewport used to crush 3 columns past their edges) */
+  .recs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
   .rec{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:13px 14px;position:relative}
   .rec.win{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
   .rec .rank{position:absolute;top:-9px;left:12px;background:var(--accent);color:#04110b;font-size:var(--fs-eyebrow);font-weight:700;padding:2px 7px;border-radius:10px}
@@ -171,9 +173,10 @@
   .fc-task-chip{display:inline-block;margin-left:8px;padding:2px 8px;background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent);border-radius:10px;font-size:var(--fs-caption);font-weight:500;vertical-align:middle}
   .fc-score-src{font-size:var(--fs-caption);color:var(--dim);margin:6px 0 2px}
   .fc-score-src b{color:var(--ink);font-weight:500}
-  /* Mobile stacked-row view — hidden by default; replaces table under 780px */
-  .fc-mobile{display:none}
-  .fc-row{padding:11px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:var(--panel)}
+  /* Card view — hidden on wide desktop (table shown); becomes a responsive multi-column
+     grid below 1200px so it fills the content width instead of a lonely single column */
+  .fc-mobile{display:none;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .fc-row{padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
   .fc-row.dim{opacity:.35}
   .fc-row-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px;min-width:0}
   .fc-row-n{font-size:var(--fs-body);font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:8px;min-width:0;flex:1 1 auto;overflow:hidden}
@@ -291,6 +294,17 @@
   .findings ul{margin:0;padding-left:18px;color:var(--dim)}
   .findings li{margin:5px 0}.findings li b{color:var(--ink);font-weight:600}
 
+  /* ───────────── FULL COMPARISON: card grid vs. table swap (≤1200px) ─────────────
+     The 18-column sortable table only fits comfortably on wide screens. Below 1200px
+     (laptops, tablets, the 300px-sidebar mid-range) show the responsive card grid
+     instead — it fills the content width with multiple columns and stays readable. */
+  @media (max-width:1200px){
+    .fc-tablewrap{display:none}
+    .fc-mobile{display:grid}
+    /* 'Click a header to sort' references the (now-hidden) table — drop it here too */
+    #fc-card .h-sub{display:none}
+  }
+
   /* ─────────────────────────── RESPONSIVE / MOBILE (≤780px) ─────────────────────────── */
   @media (max-width:780px){
     /* Stack the two-column grid into one — sidebar above content */
@@ -361,16 +375,10 @@
     #active-feature .af-attrs{grid-template-columns:1fr 1fr}
     /* Bigger touch target for the close button on mobile (≥40px reachable) */
     #active-feature .af-clear{width:36px;height:36px;font-size:16px}
-    /* Mobile: replace horizontal-scroll table with stacked one-card-per-model list */
-    .fc-tablewrap{display:none}
-    .fc-mobile{display:block}
     .fc-task-chip{display:block;margin:6px 0 0 0;width:fit-content}
     /* Active-filters is redundant on mobile — task lives in the title chip, constraints
        live in the sticky chip bar at the top of the page. Hide to reclaim space. */
     #fc-card .active-filters{display:none}
-    /* 'Click a header to sort' only applies to the desktop table — mobile cards have no
-       sortable headers, so the hint is meaningless here. */
-    #fc-card .h-sub{display:none}
     /* Quartile band cards tighter */
     .floor-band{font-size:var(--fs-caption);padding:7px 9px}
     /* Workload profiler in cost panel — already responsive enough */
