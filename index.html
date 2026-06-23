@@ -17,6 +17,11 @@
   }
   @media (max-width:780px){:root{--fs-h1:17px; --fs-h2:14px; --fs-body:12.5px; --fs-caption:11px; --fs-metric:19px; --fs-button:11.5px}}
   @media (max-width:420px){:root{--fs-h1:15.5px; --fs-metric:17px}}
+  /* Respect the OS "reduce motion" setting — neutralize the pulsing freshness dot,
+     the mobile sheet slide-up, and all transitions for users who opt out of motion. */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
   *{box-sizing:border-box}
   html,body{background:var(--bg);color:var(--ink);margin:0;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.45;font-size:var(--fs-body)}
   a{color:var(--accent)}
