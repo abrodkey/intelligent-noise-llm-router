@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-24T08:53:09+00:00",
+  "generated_at": "2026-06-25T08:47:59+00:00",
   "sources": {
     "aa": {
       "url": "https://artificialanalysis.ai/api/v2/data/llms/models",
-      "rows_pulled": 541
+      "rows_pulled": 542
     },
     "epoch": {
       "url": "https://epoch.ai/data/all_ai_models.csv",
@@ -67,6 +67,18 @@
   },
   "radar": [
     {
+      "base": "MiniMax-M3-NVFP4",
+      "creator": "NVIDIA",
+      "max_intel": null,
+      "release_date": "2026-06-23",
+      "newer_than_our": null,
+      "sources": [
+        "hf"
+      ],
+      "hf_id": "nvidia/MiniMax-M3-NVFP4",
+      "hf_downloads": 12
+    },
+    {
       "base": "GLM-5.2",
       "creator": "Z AI",
       "max_intel": 51.1,
@@ -88,7 +100,7 @@
         "hf"
       ],
       "hf_id": "zai-org/GLM-5.2-FP8",
-      "hf_downloads": 395290
+      "hf_downloads": 445304
     },
     {
       "base": "FastContext-1.0-4B-RL",
@@ -100,7 +112,7 @@
         "hf"
       ],
       "hf_id": "microsoft/FastContext-1.0-4B-RL",
-      "hf_downloads": 3063
+      "hf_downloads": 3353
     },
     {
       "base": "FastContext-1.0-4B-SFT",
@@ -112,19 +124,7 @@
         "hf"
       ],
       "hf_id": "microsoft/FastContext-1.0-4B-SFT",
-      "hf_downloads": 4391
-    },
-    {
-      "base": "diffusiongemma-26B-A4B-it-NVFP4",
-      "creator": "NVIDIA",
-      "max_intel": null,
-      "release_date": "2026-06-10",
-      "newer_than_our": null,
-      "sources": [
-        "hf"
-      ],
-      "hf_id": "nvidia/diffusiongemma-26B-A4B-it-NVFP4",
-      "hf_downloads": 770554
+      "hf_downloads": 4805
     }
   ],
   "task_buckets": [
@@ -516,8 +516,8 @@
       "intelligence_index": 55.7,
       "coding_index": 74.3,
       "math_index": null,
-      "output_tok_per_sec": 72.338,
-      "ttft_seconds": 31.811,
+      "output_tok_per_sec": 65.691,
+      "ttft_seconds": 23.583,
       "task_scores": {
         "research": {
           "score": 68.8,
@@ -617,13 +617,13 @@
           "cheapest_provider": "Google",
           "cheapest_in": 5.0,
           "cheapest_out": 25.0,
-          "cheapest_uptime_1d": 99.96,
-          "best_uptime_1d": 99.96
+          "cheapest_uptime_1d": 99.94,
+          "best_uptime_1d": 100.0
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.96,
-        "best_uptime_1d": 99.96
+        "cheapest_uptime_1d": 99.94,
+        "best_uptime_1d": 100.0
       },
       "usage_rank": 18,
       "hallucination": null,
@@ -835,8 +835,8 @@
       "intelligence_index": 47.2,
       "coding_index": 63,
       "math_index": null,
-      "output_tok_per_sec": 68.818,
-      "ttft_seconds": 74.218,
+      "output_tok_per_sec": 68.352,
+      "ttft_seconds": 72.548,
       "task_scores": {
         "research": {
           "score": 58.8,
@@ -936,13 +936,13 @@
           "cheapest_provider": "Amazon Bedrock",
           "cheapest_in": 3.0,
           "cheapest_out": 15.0,
-          "cheapest_uptime_1d": 99.33,
-          "best_uptime_1d": 99.95
+          "cheapest_uptime_1d": 100,
+          "best_uptime_1d": 100
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.33,
-        "best_uptime_1d": 99.95
+        "cheapest_uptime_1d": 100,
+        "best_uptime_1d": 100
       },
       "usage_rank": 102,
       "hallucination": {
@@ -1158,8 +1158,8 @@
       "intelligence_index": 35.9,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 60.372,
-      "ttft_seconds": 1.07,
+      "output_tok_per_sec": 60.63,
+      "ttft_seconds": 1.188,
       "task_scores": {
         "research": {
           "score": 46.6,
@@ -1257,13 +1257,13 @@
           "cheapest_provider": "Amazon Bedrock",
           "cheapest_in": 3.0,
           "cheapest_out": 15.0,
-          "cheapest_uptime_1d": 99.33,
-          "best_uptime_1d": 99.95
+          "cheapest_uptime_1d": 99.96,
+          "best_uptime_1d": 99.97
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.33,
-        "best_uptime_1d": 99.95
+        "cheapest_uptime_1d": 99.96,
+        "best_uptime_1d": 99.97
       },
       "usage_rank": 102,
       "hallucination": {
@@ -1479,8 +1479,8 @@
       "intelligence_index": 29.6,
       "coding_index": 43.9,
       "math_index": 83.7,
-      "output_tok_per_sec": 174.58,
-      "ttft_seconds": 13.328,
+      "output_tok_per_sec": 170.421,
+      "ttft_seconds": 13.493,
       "task_scores": {
         "research": {
           "score": 51.0,
@@ -1635,8 +1635,8 @@
       "intelligence_index": 53.1,
       "coding_index": 71.6,
       "math_index": null,
-      "output_tok_per_sec": 79.275,
-      "ttft_seconds": 14.422,
+      "output_tok_per_sec": 74.258,
+      "ttft_seconds": 12.762,
       "task_scores": {
         "research": {
           "score": 68.1,
@@ -1736,13 +1736,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 5.0,
           "cheapest_out": 30.0,
-          "cheapest_uptime_1d": 94.24,
-          "best_uptime_1d": 99.51
+          "cheapest_uptime_1d": 94.25,
+          "best_uptime_1d": 99.46
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 94.24,
-        "best_uptime_1d": 99.51
+        "cheapest_uptime_1d": 94.25,
+        "best_uptime_1d": 99.46
       },
       "usage_rank": 49,
       "hallucination": {
@@ -2057,13 +2057,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 5.0,
           "cheapest_out": 30.0,
-          "cheapest_uptime_1d": 94.23,
-          "best_uptime_1d": 99.51
+          "cheapest_uptime_1d": 94.24,
+          "best_uptime_1d": 99.46
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 94.23,
-        "best_uptime_1d": 99.51
+        "cheapest_uptime_1d": 94.24,
+        "best_uptime_1d": 99.46
       },
       "usage_rank": 49,
       "hallucination": {
@@ -2273,8 +2273,8 @@
       "intelligence_index": 51.4,
       "coding_index": 71.1,
       "math_index": null,
-      "output_tok_per_sec": 161.447,
-      "ttft_seconds": 77.371,
+      "output_tok_per_sec": 159.31,
+      "ttft_seconds": 99.76,
       "task_scores": {
         "research": {
           "score": 66.8,
@@ -2374,13 +2374,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 2.5,
           "cheapest_out": 15.0,
-          "cheapest_uptime_1d": 99.71,
-          "best_uptime_1d": 99.85
+          "cheapest_uptime_1d": 99.64,
+          "best_uptime_1d": 99.95
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.71,
-        "best_uptime_1d": 99.85
+        "cheapest_uptime_1d": 99.64,
+        "best_uptime_1d": 99.95
       },
       "usage_rank": 87,
       "hallucination": {
@@ -2596,8 +2596,8 @@
       "intelligence_index": 40,
       "coding_index": 56.1,
       "math_index": null,
-      "output_tok_per_sec": 194.471,
-      "ttft_seconds": 4.094,
+      "output_tok_per_sec": 184.659,
+      "ttft_seconds": 4.202,
       "task_scores": {
         "research": {
           "score": 57.0,
@@ -2697,13 +2697,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 0.75,
           "cheapest_out": 4.5,
-          "cheapest_uptime_1d": 87.91,
-          "best_uptime_1d": 99.96
+          "cheapest_uptime_1d": 89.11,
+          "best_uptime_1d": 99.9
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 87.91,
-        "best_uptime_1d": 99.96
+        "cheapest_uptime_1d": 89.11,
+        "best_uptime_1d": 99.9
       },
       "usage_rank": 79,
       "hallucination": {
@@ -2913,8 +2913,8 @@
       "intelligence_index": 38.2,
       "coding_index": 56.1,
       "math_index": null,
-      "output_tok_per_sec": 168.366,
-      "ttft_seconds": 2.988,
+      "output_tok_per_sec": 169.707,
+      "ttft_seconds": 3.141,
       "task_scores": {
         "research": {
           "score": 54.1,
@@ -3014,13 +3014,13 @@
           "cheapest_provider": "Azure",
           "cheapest_in": 0.2,
           "cheapest_out": 1.25,
-          "cheapest_uptime_1d": 99.26,
-          "best_uptime_1d": 99.26
+          "cheapest_uptime_1d": 99.42,
+          "best_uptime_1d": 99.42
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.26,
-        "best_uptime_1d": 99.26
+        "cheapest_uptime_1d": 99.42,
+        "best_uptime_1d": 99.42
       },
       "usage_rank": 78,
       "hallucination": {
@@ -3065,8 +3065,8 @@
       "intelligence_index": 50.2,
       "coding_index": 70.1,
       "math_index": null,
-      "output_tok_per_sec": 237.112,
-      "ttft_seconds": 15.302,
+      "output_tok_per_sec": 220.853,
+      "ttft_seconds": 13.036,
       "task_scores": {
         "research": {
           "score": 66.6,
@@ -3166,13 +3166,13 @@
           "cheapest_provider": "Google",
           "cheapest_in": 1.5,
           "cheapest_out": 9.0,
-          "cheapest_uptime_1d": 99.05,
-          "best_uptime_1d": 99.53
+          "cheapest_uptime_1d": 99.0,
+          "best_uptime_1d": 99.81
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.05,
-        "best_uptime_1d": 99.53
+        "cheapest_uptime_1d": 99.0,
+        "best_uptime_1d": 99.81
       },
       "usage_rank": 21,
       "hallucination": null,
@@ -3366,8 +3366,8 @@
       "intelligence_index": 46.5,
       "coding_index": 68.8,
       "math_index": null,
-      "output_tok_per_sec": 143.169,
-      "ttft_seconds": 33.95,
+      "output_tok_per_sec": 144.988,
+      "ttft_seconds": 29.762,
       "task_scores": {
         "research": {
           "score": 69.4,
@@ -3467,13 +3467,13 @@
           "cheapest_provider": "Google",
           "cheapest_in": 2.0,
           "cheapest_out": 12.0,
-          "cheapest_uptime_1d": 96.08,
-          "best_uptime_1d": 99.55
+          "cheapest_uptime_1d": 96.7,
+          "best_uptime_1d": 99.54
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 96.08,
-        "best_uptime_1d": 99.55
+        "cheapest_uptime_1d": 96.7,
+        "best_uptime_1d": 99.54
       },
       "usage_rank": 101,
       "hallucination": {
@@ -3689,8 +3689,8 @@
       "intelligence_index": 42.8,
       "coding_index": 56,
       "math_index": null,
-      "output_tok_per_sec": 33.837,
-      "ttft_seconds": 1.423,
+      "output_tok_per_sec": 25.339,
+      "ttft_seconds": 1.668,
       "task_scores": {
         "research": {
           "score": 63.5,
@@ -3790,13 +3790,13 @@
           "cheapest_provider": "Decart",
           "cheapest_in": 0.66,
           "cheapest_out": 3.41,
-          "cheapest_uptime_1d": 99.42,
-          "best_uptime_1d": 99.87
+          "cheapest_uptime_1d": 99.43,
+          "best_uptime_1d": 99.95
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.42,
-        "best_uptime_1d": 99.87
+        "cheapest_uptime_1d": 99.43,
+        "best_uptime_1d": 99.95
       },
       "usage_rank": 60,
       "hallucination": {
@@ -4008,8 +4008,8 @@
       "intelligence_index": 44.3,
       "coding_index": 59.4,
       "math_index": null,
-      "output_tok_per_sec": 102.614,
-      "ttft_seconds": 1.169,
+      "output_tok_per_sec": 65.7,
+      "ttft_seconds": 1.174,
       "task_scores": {
         "research": {
           "score": 62.3,
@@ -4101,21 +4101,21 @@
         "spread": {
           "host_count": 16,
           "input_min": 0.435,
-          "input_median": 1.6,
-          "input_max": 1.74,
+          "input_median": 1.604,
+          "input_max": 1.75,
           "output_min": 0.87,
-          "output_median": 3.1675,
+          "output_median": 3.2,
           "output_max": 3.796,
           "cheapest_provider": "DeepSeek",
           "cheapest_in": 0.435,
           "cheapest_out": 0.87,
-          "cheapest_uptime_1d": 99.98,
-          "best_uptime_1d": 99.98
+          "cheapest_uptime_1d": 99.94,
+          "best_uptime_1d": 99.94
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.98,
-        "best_uptime_1d": 99.98
+        "cheapest_uptime_1d": 99.94,
+        "best_uptime_1d": 99.94
       },
       "usage_rank": 50,
       "hallucination": {
@@ -4333,8 +4333,8 @@
       "intelligence_index": 40.3,
       "coding_index": 56.2,
       "math_index": null,
-      "output_tok_per_sec": 120.928,
-      "ttft_seconds": 1.054,
+      "output_tok_per_sec": 124.089,
+      "ttft_seconds": 1.39,
       "task_scores": {
         "research": {
           "score": 60.8,
@@ -4434,13 +4434,13 @@
           "cheapest_provider": "Wafer",
           "cheapest_in": 0.09,
           "cheapest_out": 0.18,
-          "cheapest_uptime_1d": 98.9,
-          "best_uptime_1d": 99.96
+          "cheapest_uptime_1d": 96.77,
+          "best_uptime_1d": 99.89
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 98.9,
-        "best_uptime_1d": 99.96
+        "cheapest_uptime_1d": 96.77,
+        "best_uptime_1d": 99.89
       },
       "usage_rank": 51,
       "hallucination": null,
@@ -4646,8 +4646,8 @@
       "intelligence_index": 40,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 42.851,
-      "ttft_seconds": 1.937,
+      "output_tok_per_sec": 41.298,
+      "ttft_seconds": 2.158,
       "task_scores": {
         "research": {
           "score": 58.8,
@@ -4939,8 +4939,8 @@
       "intelligence_index": 40.2,
       "coding_index": 55.8,
       "math_index": null,
-      "output_tok_per_sec": 90.239,
-      "ttft_seconds": 0.798,
+      "output_tok_per_sec": 80.841,
+      "ttft_seconds": 0.797,
       "task_scores": {
         "research": {
           "score": 57.4,
@@ -5027,8 +5027,8 @@
       "openrouter": {
         "slug": "z-ai/glm-5.1",
         "context_length": 202752,
-        "max_output": 65535,
-        "cached_read_per_1m": 0.49,
+        "max_output": null,
+        "cached_read_per_1m": 0.182,
         "spread": {
           "host_count": 19,
           "input_min": 0.98,
@@ -5037,16 +5037,16 @@
           "output_min": 3.08,
           "output_median": 4.3,
           "output_max": 5.5,
-          "cheapest_provider": "Chutes",
+          "cheapest_provider": "GMICloud",
           "cheapest_in": 0.98,
           "cheapest_out": 3.08,
-          "cheapest_uptime_1d": 89.9,
-          "best_uptime_1d": 100.0
+          "cheapest_uptime_1d": 97.93,
+          "best_uptime_1d": 99.99
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 89.9,
-        "best_uptime_1d": 100.0
+        "cheapest_uptime_1d": 97.93,
+        "best_uptime_1d": 99.99
       },
       "usage_rank": 63,
       "hallucination": null,
@@ -5325,13 +5325,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 2.5,
           "cheapest_out": 15.0,
-          "cheapest_uptime_1d": 99.71,
-          "best_uptime_1d": 99.85
+          "cheapest_uptime_1d": 99.64,
+          "best_uptime_1d": 99.95
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 99.71,
-        "best_uptime_1d": 99.85
+        "cheapest_uptime_1d": 99.64,
+        "best_uptime_1d": 99.95
       },
       "usage_rank": 87,
       "hallucination": null,
@@ -5543,8 +5543,8 @@
       "intelligence_index": 54.8,
       "coding_index": 74.9,
       "math_index": null,
-      "output_tok_per_sec": 63.586,
-      "ttft_seconds": 19.206,
+      "output_tok_per_sec": 66.347,
+      "ttft_seconds": 25.352,
       "task_scores": {
         "research": {
           "score": 68.9,
@@ -5644,13 +5644,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 5.0,
           "cheapest_out": 30.0,
-          "cheapest_uptime_1d": 94.23,
-          "best_uptime_1d": 99.51
+          "cheapest_uptime_1d": 94.25,
+          "best_uptime_1d": 99.46
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 94.23,
-        "best_uptime_1d": 99.51
+        "cheapest_uptime_1d": 94.25,
+        "best_uptime_1d": 99.46
       },
       "usage_rank": 49,
       "hallucination": null,
@@ -5695,7 +5695,7 @@
       "intelligence_index": 35.4,
       "coding_index": 56.5,
       "math_index": null,
-      "output_tok_per_sec": 57.195,
+      "output_tok_per_sec": 60.214,
       "ttft_seconds": 0.966,
       "task_scores": {
         "research": {
@@ -5796,13 +5796,13 @@
           "cheapest_provider": "OpenAI",
           "cheapest_in": 5.0,
           "cheapest_out": 30.0,
-          "cheapest_uptime_1d": 94.23,
-          "best_uptime_1d": 99.51
+          "cheapest_uptime_1d": 94.25,
+          "best_uptime_1d": 99.46
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 94.23,
-        "best_uptime_1d": 99.51
+        "cheapest_uptime_1d": 94.25,
+        "best_uptime_1d": 99.46
       },
       "usage_rank": 49,
       "hallucination": null,
@@ -6014,8 +6014,8 @@
       "intelligence_index": 53.5,
       "coding_index": 73.6,
       "math_index": null,
-      "output_tok_per_sec": 61.651,
-      "ttft_seconds": 16.388,
+      "output_tok_per_sec": 58.258,
+      "ttft_seconds": 18.656,
       "task_scores": {
         "research": {
           "score": 65.5,
@@ -6115,13 +6115,13 @@
           "cheapest_provider": "Google",
           "cheapest_in": 5.0,
           "cheapest_out": 25.0,
-          "cheapest_uptime_1d": 100,
-          "best_uptime_1d": 100
+          "cheapest_uptime_1d": null,
+          "best_uptime_1d": 99.99
         }
       },
       "reliability": {
-        "cheapest_uptime_1d": 100,
-        "best_uptime_1d": 100
+        "cheapest_uptime_1d": null,
+        "best_uptime_1d": 99.99
       },
       "usage_rank": 61,
       "hallucination": null,
@@ -6603,8 +6603,8 @@
       "intelligence_index": 51.1,
       "coding_index": 68.8,
       "math_index": null,
-      "output_tok_per_sec": 118.007,
-      "ttft_seconds": 1.02,
+      "output_tok_per_sec": 122.39,
+      "ttft_seconds": 0.99,
       "task_scores": {
         "research": {
           "score": 64.8,
@@ -6719,7 +6719,7 @@
       "last_verified": "2026-06-15",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Z AI",
         "template_provider": "zhipu-glm-5.1",
         "release_date": "2026-06-16",
@@ -6741,8 +6741,8 @@
       "intelligence_index": 41.9,
       "coding_index": 60.8,
       "math_index": null,
-      "output_tok_per_sec": 46.298,
-      "ttft_seconds": 1.144,
+      "output_tok_per_sec": 52.712,
+      "ttft_seconds": 1.115,
       "task_scores": {
         "research": {
           "score": 61.2,
@@ -6867,7 +6867,7 @@
       "last_verified": "2026-06-15",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Kimi",
         "template_provider": "moonshot-kimi-k2.6",
         "release_date": "2026-06-12",
@@ -6890,8 +6890,8 @@
       "intelligence_index": 37.8,
       "coding_index": 49.3,
       "math_index": null,
-      "output_tok_per_sec": 139.112,
-      "ttft_seconds": 1.01,
+      "output_tok_per_sec": 141.249,
+      "ttft_seconds": 1.041,
       "task_scores": {
         "research": {
           "score": 56.7,
@@ -7006,7 +7006,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "NVIDIA",
         "template_provider": "nvidia-template",
         "release_date": "2026-06-04",
@@ -7027,8 +7027,8 @@
       "intelligence_index": 44.4,
       "coding_index": 58.6,
       "math_index": null,
-      "output_tok_per_sec": 65.993,
-      "ttft_seconds": 1.995,
+      "output_tok_per_sec": 64.22,
+      "ttft_seconds": 1.823,
       "task_scores": {
         "research": {
           "score": 65.0,
@@ -7304,7 +7304,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "MiniMax",
         "template_provider": "minimax-template",
         "release_date": "2026-06-01",
@@ -7327,8 +7327,8 @@
       "intelligence_index": 39,
       "coding_index": 55.9,
       "math_index": null,
-      "output_tok_per_sec": 51.462,
-      "ttft_seconds": 1.717,
+      "output_tok_per_sec": 50.742,
+      "ttft_seconds": 1.733,
       "task_scores": {
         "research": {
           "score": 61.7,
@@ -7443,7 +7443,7 @@
       "last_verified": "2026-06-15",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Alibaba",
         "template_provider": "alibaba-qwen-3.6-max",
         "release_date": "2026-06-01",
@@ -7465,8 +7465,8 @@
       "intelligence_index": 46,
       "coding_index": 66,
       "math_index": null,
-      "output_tok_per_sec": 202.876,
-      "ttft_seconds": 1.629,
+      "output_tok_per_sec": 204.039,
+      "ttft_seconds": 1.617,
       "task_scores": {
         "research": {
           "score": 65.2,
@@ -7581,7 +7581,7 @@
       "last_verified": "2026-06-15",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Alibaba",
         "template_provider": "alibaba-qwen-3.6-max",
         "release_date": "2026-05-19",
@@ -7597,16 +7597,16 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
-      "aa_name_raw": "Grok 4.3 (high)",
+      "aa_name_raw": "Grok 4.3 (low)",
       "aa_is_preview": false,
-      "intelligence_index": 37.6,
-      "coding_index": 42.2,
+      "intelligence_index": 35.4,
+      "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 153.134,
-      "ttft_seconds": 21.476,
+      "output_tok_per_sec": 128.066,
+      "ttft_seconds": 5.711,
       "task_scores": {
         "research": {
-          "score": 62.6,
+          "score": 50.8,
           "metrics_used": [
             "gpqa",
             "hle"
@@ -7614,7 +7614,7 @@
           "needs_arena": false
         },
         "data_synthesis": {
-          "score": 85.7,
+          "score": 82.6,
           "metrics_used": [
             "gpqa",
             "ifbench"
@@ -7622,7 +7622,7 @@
           "needs_arena": false
         },
         "web_research": {
-          "score": 67.8,
+          "score": 57.7,
           "metrics_used": [
             "tau2",
             "terminalbench_hard"
@@ -7630,7 +7630,7 @@
           "needs_arena": false
         },
         "chat": {
-          "score": 59.4,
+          "score": 58.2,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7638,10 +7638,8 @@
           "needs_arena": true
         },
         "coding": {
-          "score": 42.2,
-          "metrics_used": [
-            "artificial_analysis_coding_index"
-          ],
+          "score": null,
+          "metrics_used": [],
           "needs_arena": false
         },
         "math": {
@@ -7650,7 +7648,7 @@
           "needs_arena": false
         },
         "writing_email": {
-          "score": 59.4,
+          "score": 58.2,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7658,7 +7656,7 @@
           "needs_arena": true
         },
         "classification": {
-          "score": 59.4,
+          "score": 58.2,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7666,7 +7664,7 @@
           "needs_arena": false
         },
         "summarization": {
-          "score": 59.4,
+          "score": 58.2,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7686,7 +7684,7 @@
         "promo_note": null,
         "direct_blended_3_to_1": 6.0
       },
-      "intel_per_dollar": 6.27,
+      "intel_per_dollar": 5.9,
       "openrouter": null,
       "reliability": null,
       "usage_rank": null,
@@ -7885,7 +7883,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "xAI",
         "template_provider": "xai-template",
         "release_date": "2026-04-30",
@@ -7902,16 +7900,16 @@
       "warnings": [
         "OpenRouter match not found for 'None'"
       ],
-      "aa_name_raw": "MiMo-V2.5-Pro",
+      "aa_name_raw": "MiMo-V2.5-Pro (Non-reasoning)",
       "aa_is_preview": false,
-      "intelligence_index": 42.2,
-      "coding_index": 60.2,
+      "intelligence_index": 27.9,
+      "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 49.967,
-      "ttft_seconds": 2.096,
+      "output_tok_per_sec": 48.721,
+      "ttft_seconds": 1.481,
       "task_scores": {
         "research": {
-          "score": 60.2,
+          "score": 44.8,
           "metrics_used": [
             "gpqa",
             "hle"
@@ -7919,7 +7917,7 @@
           "needs_arena": false
         },
         "data_synthesis": {
-          "score": 83.2,
+          "score": 59.5,
           "metrics_used": [
             "gpqa",
             "ifbench"
@@ -7927,7 +7925,7 @@
           "needs_arena": false
         },
         "web_research": {
-          "score": 68.7,
+          "score": 54.1,
           "metrics_used": [
             "tau2",
             "terminalbench_hard"
@@ -7935,7 +7933,7 @@
           "needs_arena": false
         },
         "chat": {
-          "score": 61.0,
+          "score": 35.3,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7943,10 +7941,8 @@
           "needs_arena": true
         },
         "coding": {
-          "score": 60.2,
-          "metrics_used": [
-            "artificial_analysis_coding_index"
-          ],
+          "score": null,
+          "metrics_used": [],
           "needs_arena": false
         },
         "math": {
@@ -7955,7 +7951,7 @@
           "needs_arena": false
         },
         "writing_email": {
-          "score": 61.0,
+          "score": 35.3,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7963,7 +7959,7 @@
           "needs_arena": true
         },
         "classification": {
-          "score": 61.0,
+          "score": 35.3,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7971,7 +7967,7 @@
           "needs_arena": false
         },
         "summarization": {
-          "score": 61.0,
+          "score": 35.3,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -7985,13 +7981,13 @@
         "committed_input_per_1m": null,
         "committed_output_per_1m": null,
         "committed_assumptions": "Open weights (Apache 2.0).",
-        "aa_blended_per_1m": 0.544,
+        "aa_blended_per_1m": 1.35,
         "prompt_caching_discount_pct": null,
         "batch_api_discount_pct": null,
         "promo_note": null,
         "direct_blended_3_to_1": 0.525
       },
-      "intel_per_dollar": 80.38,
+      "intel_per_dollar": 53.14,
       "openrouter": null,
       "reliability": null,
       "usage_rank": null,
@@ -8190,7 +8186,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Xiaomi",
         "template_provider": "xiaomi-template",
         "release_date": "2026-04-22",
@@ -8212,8 +8208,8 @@
       "intelligence_index": 40.1,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 64.49,
-      "ttft_seconds": 2.215,
+      "output_tok_per_sec": 73.584,
+      "ttft_seconds": 1.945,
       "task_scores": {
         "research": {
           "score": 55.0,
@@ -8493,7 +8489,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Xiaomi",
         "template_provider": "xiaomi-template",
         "release_date": "2026-04-22",
@@ -8511,16 +8507,16 @@
         "Epoch match not found for 'Qwen3.6 27B'",
         "OpenRouter match not found for 'None'"
       ],
-      "aa_name_raw": "Qwen3.6 27B (Reasoning)",
+      "aa_name_raw": "Qwen3.6 27B (Non-reasoning)",
       "aa_is_preview": false,
-      "intelligence_index": 37.1,
-      "coding_index": 53.7,
+      "intelligence_index": 29.3,
+      "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 63.307,
-      "ttft_seconds": 1.385,
+      "output_tok_per_sec": 62.635,
+      "ttft_seconds": 1.675,
       "task_scores": {
         "research": {
-          "score": 52.9,
+          "score": 48.2,
           "metrics_used": [
             "gpqa",
             "hle"
@@ -8528,7 +8524,7 @@
           "needs_arena": false
         },
         "data_synthesis": {
-          "score": 75.9,
+          "score": 64.3,
           "metrics_used": [
             "gpqa",
             "ifbench"
@@ -8536,7 +8532,7 @@
           "needs_arena": false
         },
         "web_research": {
-          "score": 64.5,
+          "score": 57.4,
           "metrics_used": [
             "tau2",
             "terminalbench_hard"
@@ -8544,7 +8540,7 @@
           "needs_arena": false
         },
         "chat": {
-          "score": 52.3,
+          "score": 37.5,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -8552,10 +8548,8 @@
           "needs_arena": true
         },
         "coding": {
-          "score": 53.7,
-          "metrics_used": [
-            "artificial_analysis_coding_index"
-          ],
+          "score": null,
+          "metrics_used": [],
           "needs_arena": false
         },
         "math": {
@@ -8564,7 +8558,7 @@
           "needs_arena": false
         },
         "writing_email": {
-          "score": 52.3,
+          "score": 37.5,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -8572,7 +8566,7 @@
           "needs_arena": true
         },
         "classification": {
-          "score": 52.3,
+          "score": 37.5,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -8580,7 +8574,7 @@
           "needs_arena": false
         },
         "summarization": {
-          "score": 52.3,
+          "score": 37.5,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -8600,7 +8594,7 @@
         "promo_note": null,
         "direct_blended_3_to_1": 2.925
       },
-      "intel_per_dollar": 12.68,
+      "intel_per_dollar": 10.02,
       "openrouter": null,
       "reliability": null,
       "usage_rank": null,
@@ -8632,7 +8626,7 @@
       "last_verified": "2026-06-15",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Alibaba",
         "template_provider": "alibaba-qwen-3.6-max",
         "release_date": "2026-04-22",
@@ -8931,7 +8925,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Meta",
         "template_provider": "meta-template",
         "release_date": "2026-04-08",
@@ -8949,16 +8943,16 @@
         "Epoch match not found for 'Grok 4.20 0309 v2'",
         "OpenRouter match not found for 'None'"
       ],
-      "aa_name_raw": "Grok 4.20 0309 v2 (Non-reasoning)",
+      "aa_name_raw": "Grok 4.20 0309 v2 (Reasoning)",
       "aa_is_preview": false,
-      "intelligence_index": 21.8,
+      "intelligence_index": 37,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 232.27,
-      "ttft_seconds": 0.401,
+      "output_tok_per_sec": 255.093,
+      "ttft_seconds": 13.116,
       "task_scores": {
         "research": {
-          "score": 50.9,
+          "score": 61.7,
           "metrics_used": [
             "gpqa",
             "hle"
@@ -8966,7 +8960,7 @@
           "needs_arena": false
         },
         "data_synthesis": {
-          "score": 63.5,
+          "score": 86.2,
           "metrics_used": [
             "gpqa",
             "ifbench"
@@ -8974,7 +8968,7 @@
           "needs_arena": false
         },
         "web_research": {
-          "score": 38.3,
+          "score": 65.4,
           "metrics_used": [
             "tau2",
             "terminalbench_hard"
@@ -8982,7 +8976,7 @@
           "needs_arena": false
         },
         "chat": {
-          "score": 35.6,
+          "score": 59.1,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -9000,7 +8994,7 @@
           "needs_arena": false
         },
         "writing_email": {
-          "score": 35.6,
+          "score": 59.1,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -9008,7 +9002,7 @@
           "needs_arena": true
         },
         "classification": {
-          "score": 35.6,
+          "score": 59.1,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -9016,7 +9010,7 @@
           "needs_arena": false
         },
         "summarization": {
-          "score": 35.6,
+          "score": 59.1,
           "metrics_used": [
             "ifbench",
             "artificial_analysis_intelligence_index"
@@ -9036,7 +9030,7 @@
         "promo_note": null,
         "direct_blended_3_to_1": 6.0
       },
-      "intel_per_dollar": 3.63,
+      "intel_per_dollar": 6.17,
       "openrouter": null,
       "reliability": null,
       "usage_rank": null,
@@ -9068,7 +9062,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "xAI",
         "template_provider": "xai-template",
         "release_date": "2026-04-07",
@@ -9090,8 +9084,8 @@
       "intelligence_index": 36.4,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 69.962,
-      "ttft_seconds": 2.55,
+      "output_tok_per_sec": 77.793,
+      "ttft_seconds": 2.003,
       "task_scores": {
         "research": {
           "score": 53.0,
@@ -9204,7 +9198,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Xiaomi",
         "template_provider": "xiaomi-template",
         "release_date": "2026-03-27",
@@ -9226,8 +9220,8 @@
       "intelligence_index": 35,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 66.422,
-      "ttft_seconds": 2.789,
+      "output_tok_per_sec": 73.787,
+      "ttft_seconds": 2.077,
       "task_scores": {
         "research": {
           "score": 51.4,
@@ -9507,7 +9501,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Xiaomi",
         "template_provider": "xiaomi-template",
         "release_date": "2026-03-19",
@@ -9529,8 +9523,8 @@
       "intelligence_index": 40.3,
       "coding_index": null,
       "math_index": null,
-      "output_tok_per_sec": 50.791,
-      "ttft_seconds": 2.048,
+      "output_tok_per_sec": 47.925,
+      "ttft_seconds": 1.939,
       "task_scores": {
         "research": {
           "score": 57.6,
@@ -9810,7 +9804,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "Xiaomi",
         "template_provider": "xiaomi-template",
         "release_date": "2026-03-18",
@@ -9833,8 +9827,8 @@
       "intelligence_index": 38.1,
       "coding_index": 52.6,
       "math_index": null,
-      "output_tok_per_sec": 47.631,
-      "ttft_seconds": 1.678,
+      "output_tok_per_sec": 48.958,
+      "ttft_seconds": 1.712,
       "task_scores": {
         "research": {
           "score": 57.8,
@@ -10116,7 +10110,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "MiniMax",
         "template_provider": "minimax-template",
         "release_date": "2026-03-18",
@@ -10140,7 +10134,7 @@
       "coding_index": null,
       "math_index": null,
       "output_tok_per_sec": 243.668,
-      "ttft_seconds": 11.186,
+      "ttft_seconds": 13.131,
       "task_scores": {
         "research": {
           "score": 59.2,
@@ -10253,7 +10247,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "xAI",
         "template_provider": "xai-template",
         "release_date": "2026-03-10",
@@ -10275,8 +10269,8 @@
       "intelligence_index": 39.8,
       "coding_index": 51.5,
       "math_index": null,
-      "output_tok_per_sec": 70.253,
-      "ttft_seconds": 0.404,
+      "output_tok_per_sec": 70.581,
+      "ttft_seconds": 0.401,
       "task_scores": {
         "research": {
           "score": 62.8,
@@ -10383,7 +10377,7 @@
       "last_verified": "2026-06-22",
       "auto_promoted": true,
       "staging_provenance": {
-        "promoted_at": "2026-06-24",
+        "promoted_at": "2026-06-25",
         "creator": "xAI",
         "template_provider": "xai-template",
         "release_date": null,
