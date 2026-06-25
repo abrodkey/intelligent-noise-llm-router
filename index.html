@@ -469,14 +469,13 @@
     <div class="meta" id="meta"></div>
   </div>
   <div class="hdr-act">
+    <button id="show-onb">How to use</button>
     <button id="show-features">Features</button>
-    <button id="show-onb" class="hdr-secondary">How to use</button>
     <button id="show-costing" class="hdr-secondary">Costing</button>
     <button id="show-scoring" class="hdr-secondary">Scoring</button>
     <div class="hdr-help" id="hdr-help">
       <button id="hdr-help-btn" aria-label="Help and reference" aria-haspopup="true" aria-expanded="false">?</button>
       <div class="hdr-help-menu" id="hdr-help-menu" role="menu">
-        <button data-target="show-onb" role="menuitem">How to use</button>
         <button data-target="show-costing" role="menuitem">Costing</button>
         <button data-target="show-scoring" role="menuitem">Scoring</button>
       </div>
@@ -1587,8 +1586,8 @@ const TAB_HOWTO=()=>{const badge=n=>`<span style="display:inline-block;width:22p
     ${row(3,"Read the top-3",`The recommender shows the <b style="color:var(--ink)">cheapest models that clear your bar</b>, with savings vs. defaulting to the frontier and trade-off receipts (origin, train policy, cheapest host, hallucination, uptime). Tap any <b style="color:var(--ink)">ⓘ</b> for more.`)}
   </table>
   <h4>What the header buttons do</h4>
-  <p><b>Features</b> — build a feature in 5 questions; the answers set the task, quality floor, cost tier, compliance + capability filters, and cache/batch in one step.<br>
-  <b>How to use</b> — this guide.<br>
+  <p><b>How to use</b> — this guide.<br>
+  <b>Features</b> — build a feature in 5 questions; the answers set the task, quality floor, cost tier, compliance + capability filters, and cache/batch in one step.<br>
   <b>Costing</b> — explains how list price + caching + batch + reasoning penalty combine into the "effective cost" the dashboard uses.<br>
   <b>Scoring</b> — explains how each task score is calculated, what each score level means, and how agentic scoring works.</p>
   <h4>Best practice</h4>
