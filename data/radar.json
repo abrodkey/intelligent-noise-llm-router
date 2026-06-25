@@ -14,28 +14,6 @@
       "hf_downloads": 185
     },
     {
-      "base": "Nano Banana 2 (Gemini 3.1 Flash Image)",
-      "creator": "Google",
-      "max_intel": null,
-      "release_date": "2026-06-18",
-      "newer_than_our": "2026-05-19",
-      "sources": [
-        "openrouter"
-      ],
-      "or_id": "google/gemini-3.1-flash-image"
-    },
-    {
-      "base": "Nano Banana Pro (Gemini 3 Pro Image)",
-      "creator": "Google",
-      "max_intel": null,
-      "release_date": "2026-06-18",
-      "newer_than_our": "2026-05-19",
-      "sources": [
-        "openrouter"
-      ],
-      "or_id": "google/gemini-3-pro-image"
-    },
-    {
       "base": "GLM-5.2",
       "creator": "Z AI",
       "max_intel": 51.1,
