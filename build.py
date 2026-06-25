@@ -671,6 +671,19 @@ def _or_is_canonical_id(mid):
     """True for a plain paid model id (skip routers, ~aliases, and :free/:beta variants)."""
     return not (mid.startswith(("openrouter/", "~")) or ":" in mid)
 
+def _or_is_text_model(m):
+    """True if the OR model OUTPUTS text (and not images). Excludes image/video generators
+    like Google's 'Nano Banana' — they're from tracked creators but aren't routable LLMs."""
+    arch = m.get("architecture") or {}
+    outs = arch.get("output_modalities")
+    if outs is None:
+        mod = arch.get("modality") or ""
+        outs = mod.split("->")[-1].split("+") if "->" in mod else []
+    outs = [o.strip().lower() for o in (outs or [])]
+    if not outs:
+        return True  # unknown modality — don't over-filter; tracked-creator gate still applies
+    return "text" in outs and "image" not in outs
+
 def guess_or_slug(name, creator, or_catalog):
     """Best-effort match a model to its OpenRouter catalog id so pricing/hosting can fill in.
     Matches on normalized display name OR id-suffix, gated to the same creator to avoid
@@ -699,7 +712,7 @@ def openrouter_radar(or_catalog):
     cutoff = date.today() - timedelta(days=RADAR_WINDOW_DAYS)
     out = []
     for mid, m in (or_catalog or {}).items():
-        if not _or_is_canonical_id(mid):
+        if not _or_is_canonical_id(mid) or not _or_is_text_model(m):
             continue
         created = m.get("created")
         if not created:
