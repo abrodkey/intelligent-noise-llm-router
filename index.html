@@ -1533,11 +1533,11 @@ const TAB_HOW=()=>{
     <p style="color:var(--dim);font-size:var(--fs-button)">${info.note}</p>
     <h4>Worked example: ${ex?ex.display:'—'}${score==null?' (no data for this task)':''}</h4>
     ${score!=null?renderWorkedExample(ex,task):`<p style="color:var(--warn)">No data for this combination — try a different model or task.</p>`}
-    <h4>Honest limitations</h4>
+    <h4>Limitations</h4>
     <p>1. Missing metrics get skipped, not penalized — a model with sparse data may average just one or two inputs.</p>
     <p>2. <b>Chat and Email/writing have no direct AA benchmark</b> — they use instruction-following + intelligence as a proxy. The LMArena human-preference rank shown alongside is the real signal.</p>
     <p>3. <b>Sales coaching</b> uses salesevals.com’s hidden-ground-truth score directly (no formula). Cost is $/call (real measured), not $/1M tokens.</p>
-    <p>4. Treat these scores as <b>coarse triage</b>. For a high-stakes decision, test the top-3 the recommender returns against your own examples.</p>`;
+    <p>4. For a high-stakes decision, test the top-3 the recommender returns against your own examples.</p>`;
 };
 const TAB_LEVELS=()=>{
   const task=taskSel(), q=taskQuartiles(task);
