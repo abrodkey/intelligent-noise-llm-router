@@ -97,6 +97,18 @@ TRACKED_CREATORS = {"OpenAI", "Anthropic", "Google", "DeepSeek", "Kimi", "Moonsh
 RADAR_INTEL_THRESHOLD = 45
 RADAR_WINDOW_DAYS = 14   # Only flag models released in the last N days — anything older isn't "new"
 
+# OpenRouter id-prefix (org slug) -> AA-style creator name. Mirrors the HF/Epoch maps so OR
+# radar candidates dedupe against AA entries. OR has no intelligence score, so the
+# tracked-creator gate (plus the newer-than-our-newest check) is what keeps noise out.
+OR_ORG_TO_CREATOR = {
+    "openai":"OpenAI", "anthropic":"Anthropic", "google":"Google",
+    "deepseek":"DeepSeek", "moonshotai":"Moonshot", "qwen":"Alibaba",
+    "z-ai":"Z AI", "zhipu":"Z AI", "minimax":"MiniMax", "nvidia":"NVIDIA",
+    "x-ai":"xAI", "meta-llama":"Meta", "mistralai":"Mistral",
+    "microsoft":"Microsoft", "amazon":"Amazon", "cohere":"Cohere",
+    "xiaomi":"Xiaomi",
+}
+
 # Hugging Face Hub orgs we scan for fresh releases. AA picks up most closed-weights
 # releases quickly, but open-weights drops (Llama, Qwen, Mistral, GLM, etc.) often
 # hit HF a week before AA scores them — we want to flag those early.
@@ -651,9 +663,66 @@ def epoch_radar(epoch_rows):
     return out
 
 
+def _norm_key(s):
+    """Lowercase, strip everything but alphanumerics — for fuzzy model-name matching."""
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+def _or_is_canonical_id(mid):
+    """True for a plain paid model id (skip routers, ~aliases, and :free/:beta variants)."""
+    return not (mid.startswith(("openrouter/", "~")) or ":" in mid)
+
+def guess_or_slug(name, creator, or_catalog):
+    """Best-effort match a model to its OpenRouter catalog id so pricing/hosting can fill in.
+    Matches on normalized display name OR id-suffix, gated to the same creator to avoid
+    cross-vendor false positives. Returns the OR id or None."""
+    target = _norm_key(name)
+    if not target or not or_catalog:
+        return None
+    for mid, m in or_catalog.items():
+        if not _or_is_canonical_id(mid):
+            continue
+        if OR_ORG_TO_CREATOR.get(mid.split("/")[0].lower()) != creator:
+            continue
+        disp = m.get("name", "")
+        disp_model = disp.split(":", 1)[1].strip() if ":" in disp else disp
+        if _norm_key(disp_model) == target or _norm_key(mid.split("/")[-1]) == target:
+            return mid
+    return None
+
+def openrouter_radar(or_catalog):
+    """Scan the OpenRouter catalog for models from tracked creators listed in the last
+    RADAR_WINDOW_DAYS. OR has no intelligence score, so noise is controlled by the
+    tracked-creator gate (here) plus the newer-than-our-newest check in new_model_radar().
+    Especially useful for CLOSED models OR hosts day-one, before AA scores them and which
+    never hit HF/Epoch. Returns the same shape as the other radars so they can be merged."""
+    from datetime import date, timedelta
+    cutoff = date.today() - timedelta(days=RADAR_WINDOW_DAYS)
+    out = []
+    for mid, m in (or_catalog or {}).items():
+        if not _or_is_canonical_id(mid):
+            continue
+        created = m.get("created")
+        if not created:
+            continue
+        try:
+            rel = datetime.fromtimestamp(created, tz=timezone.utc).date()
+        except (TypeError, ValueError, OSError, OverflowError):
+            continue
+        if rel < cutoff:
+            continue
+        creator = OR_ORG_TO_CREATOR.get(mid.split("/")[0].lower())
+        if not creator or creator not in TRACKED_CREATORS:
+            continue
+        # OR display name is "Vendor: Model Name" — strip the vendor prefix for the base.
+        disp = m.get("name", "")
+        base = disp.split(":", 1)[1].strip() if ":" in disp else mid.split("/")[-1]
+        out.append({"base": base, "creator": creator, "release_date": rel.isoformat(), "or_id": mid})
+    return out
+
+
 # ── New-model radar ──────────────────────────────────────────────────────────
 
-def new_model_radar(aa_rows, epoch_rows=None):
+def new_model_radar(aa_rows, epoch_rows=None, or_catalog=None):
     """Flag models >threshold intel from tracked creators that are NEWER than our newest
     tracked model from that same creator (so we surface new drops, not back-catalog)."""
     aliases = ALIASES["models"]
@@ -727,6 +796,24 @@ def new_model_radar(aa_rows, epoch_rows=None):
             candidates[b] = {"base": er["base"], "creator": er["creator"],
                              "max_intel": None, "release_date": er["release_date"],
                              "newer_than_our": None, "sources": ["epoch"]}
+    # Merge OpenRouter radar — catalog listings from tracked creators (esp. closed models OR
+    # hosts before AA scores them). No intel score, so gate on tracked-creator (in
+    # openrouter_radar) + not-already-tracked + newer-than-our-newest from that creator.
+    for orc in openrouter_radar(or_catalog):
+        b = base_name(orc["base"])
+        if b in tracked_bases:
+            continue
+        newest = tracked_newest.get(orc["creator"])
+        if newest and orc["release_date"] and orc["release_date"] <= newest:
+            continue
+        if b in candidates:
+            candidates[b].setdefault("sources",[]).append("openrouter")
+            candidates[b].setdefault("or_id", orc["or_id"])
+        else:
+            candidates[b] = {"base": orc["base"], "creator": orc["creator"],
+                             "max_intel": None, "release_date": orc["release_date"],
+                             "newer_than_our": newest, "sources": ["openrouter"],
+                             "or_id": orc["or_id"]}
     ranked = sorted(candidates.values(), key=lambda x: (x["release_date"] or "", x.get("max_intel") or 0), reverse=True)
     (DATA / "radar.json").write_text(json.dumps({"threshold": RADAR_INTEL_THRESHOLD, "candidates": ranked}, indent=2))
     return ranked
@@ -831,7 +918,7 @@ def promote_radar_to_preview(radar_candidates, aa_rows, arena_data, or_catalog, 
             "aa_name":   aa_row["name"],
             "epoch_name": name,                  # likely miss; non-fatal
             "arena_name": canonical,             # best guess; non-fatal
-            "openrouter_slug": None,             # no auto-mapping — OR data fills in later when human graduates
+            "openrouter_slug": guess_or_slug(name, c["creator"], or_catalog),  # auto-match OR so pricing/hosting fills in
             "vectara_name":  None,
             "salesevals_name": None,
             "provider_key":  template_key,
@@ -891,7 +978,7 @@ def main():
         for w in row["warnings"]:
             print(f"      ⚠ {alias['canonical']}: {w}", file=sys.stderr)
 
-    radar = new_model_radar(aa_rows, epoch_rows)
+    radar = new_model_radar(aa_rows, epoch_rows, or_catalog)
     if radar:
         print(f"\n🛰  NEW-MODEL RADAR — {len(radar)} candidate(s) >{RADAR_INTEL_THRESHOLD} intel not in aliases.json:", file=sys.stderr)
         for c in radar:

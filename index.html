@@ -933,7 +933,7 @@ async function load(){
       const intel=r.max_intel!=null?` · intel <b>${r.max_intel}</b>`:'';
       return `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><b>${r.base}</b><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${r.creator||'unknown'} · released ${dt}${intel}</div></div>`;
     }).join('');
-    POP_CONTENT.radar=`<h4>New models on the radar</h4><p>These models appeared in upstream sources (Artificial Analysis, OpenRouter, LMArena) but aren’t wired into this dashboard yet. Add them to <code>aliases.json</code> + <code>providers.json</code> to surface them.</p>${rows}`;
+    POP_CONTENT.radar=`<h4>New models on the radar</h4><p>These models appeared in upstream sources (Artificial Analysis, Hugging Face, Epoch, OpenRouter) but aren’t wired into this dashboard yet. Add them to <code>aliases.json</code> + <code>providers.json</code> to surface them.</p>${rows}`;
   }
   // Radar lives on the SAME line as Data Sources (one logical span; wraps within itself if needed).
   const radarBit=radar?` · <span class="warn" data-pop="radar" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${radar} new model(s) flagged</span>`:'';
@@ -1371,7 +1371,7 @@ function updatePreliminaryNotice(){
   const radarRows=radar.map(r=>{
     const dt=r.release_date?fmt(r.release_date):'—';
     const intel=r.max_intel!=null?` · intel <b>${r.max_intel}</b>`:'';
-    const srcs=(r.sources||['aa']).map(s=>({aa:'AA',hf:'Hugging Face',epoch:'Epoch'})[s]||s).join(' + ');
+    const srcs=(r.sources||['aa']).map(s=>({aa:'AA',hf:'Hugging Face',epoch:'Epoch',openrouter:'OpenRouter'})[s]||s).join(' + ');
     return `<div style="padding:7px 0;border-bottom:1px solid var(--line)"><b>${r.base}</b><div style="color:var(--dim);font-size:var(--fs-caption);margin-top:2px">${r.creator||'unknown'} · released ${dt}${intel} · seen on ${srcs}</div></div>`;
   }).join('');
   const sectionB = radar.length ? `<h4 style="margin-top:14px">Detected upstream — awaiting benchmark data</h4><p>Found in Hugging Face / Epoch / AA’s catalog but no full benchmark score yet, so we can’t rank them. We’ll auto-promote each into the dashboard as soon as AA publishes a score.</p>${radarRows}` : '';
