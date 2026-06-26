@@ -39,6 +39,9 @@
   header .ttl .meta{color:var(--dim);font-size:var(--fs-caption);margin-top:6px;display:flex;gap:14px;flex-wrap:wrap}
   header .ttl .meta .warn{color:var(--warn)}
   header .ttl .meta .ds-prefix{color:var(--ink);font-weight:600}
+  /* "N new models fielded" gets its own roomy, isolated tap target so it never
+     fights the data-source links for taps (kept one unit via nowrap). */
+  header .ttl .meta #meta-fielded .warn{display:inline-block;padding:4px 4px;white-space:nowrap}
   /* Freshness badge: prominent "auto-refreshed daily" indicator with live data date. */
   header .ttl .freshness{display:inline-flex;align-items:center;gap:8px;margin-top:9px;padding:5px 11px;background:var(--accent-dim);border:1px solid var(--accent);border-radius:14px;font-size:var(--fs-button);color:var(--ink)}
   header .ttl .freshness .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(110,231,183,.18);animation:pulse 2s ease-in-out infinite}
@@ -345,6 +348,9 @@
     header{padding:14px 16px 10px;flex-direction:column;gap:8px;align-items:stretch;border-bottom:1px solid var(--line)}
     header .ttl h1{font-size:var(--fs-h1);margin:0 0 2px}
     header .ttl .meta{font-size:var(--fs-caption);gap:8px}
+    /* Bigger, full-width tap target on mobile so it's easy to hit on its own line. */
+    header .ttl .meta #meta-fielded{width:100%}
+    header .ttl .meta #meta-fielded .warn{padding:8px 2px}
     header .ttl .freshness{font-size:var(--fs-caption);padding:4px 9px}
     header .hdr-act{width:100%;justify-content:flex-start;flex-wrap:nowrap}
     header .hdr-act button{font-size:var(--fs-body);padding:10px 12px;min-height:46px;font-weight:600}
@@ -939,7 +945,9 @@ async function load(){
   }
   // Radar lives on the SAME line as Data Sources (one logical span; wraps within itself if needed).
   const radarBit=radar?` · <span class="warn" data-pop="radar" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${radar} new model(s) flagged</span>`:'';
-  $('#meta').innerHTML=`<span><span class="ds-prefix">Data Sources:</span> <a href="https://artificialanalysis.ai" target="_blank" rel="noopener">Artificial Analysis</a> · <a href="https://epoch.ai/data" target="_blank" rel="noopener">Epoch</a> · <a href="https://openrouter.ai/models" target="_blank" rel="noopener">OpenRouter</a> · <a href="https://lmarena.ai" target="_blank" rel="noopener">Arena</a> · <a href="https://huggingface.co/models" target="_blank" rel="noopener">Hugging Face</a> · <a href="https://github.com/vectara/hallucination-leaderboard" target="_blank" rel="noopener">Vectara</a> · <a href="https://salesevals.com" target="_blank" rel="noopener">salesevals</a><span id="meta-fielded"></span></span>`;
+  // "fielded" link is a SEPARATE flex child (not nested in the sources span) so its tap
+  // target doesn't overlap the data-source links — on mobile it wraps to its own line.
+  $('#meta').innerHTML=`<span class="ds-line"><span class="ds-prefix">Data Sources:</span> <a href="https://artificialanalysis.ai" target="_blank" rel="noopener">Artificial Analysis</a> · <a href="https://epoch.ai/data" target="_blank" rel="noopener">Epoch</a> · <a href="https://openrouter.ai/models" target="_blank" rel="noopener">OpenRouter</a> · <a href="https://lmarena.ai" target="_blank" rel="noopener">Arena</a> · <a href="https://huggingface.co/models" target="_blank" rel="noopener">Hugging Face</a> · <a href="https://github.com/vectara/hallucination-leaderboard" target="_blank" rel="noopener">Vectara</a> · <a href="https://salesevals.com" target="_blank" rel="noopener">salesevals</a></span><span id="meta-fielded"></span>`;
   readState();
   // Seed the floor-undo baseline AFTER readState so the initial loaded value isn’t pushed onto the history.
   lastCapturedFloor=$('#floor').value;
@@ -1378,7 +1386,7 @@ function updatePreliminaryNotice(){
   }).join('');
   const sectionB = radar.length ? `<h4 style="margin-top:14px">Detected upstream — awaiting benchmark data</h4><p>Found in Hugging Face / Epoch / AA’s catalog but no full benchmark score yet, so we can’t rank them. We’ll auto-promote each into the dashboard as soon as AA publishes a score.</p>${radarRows}` : '';
   POP_CONTENT.fielded=`<h4>Recently fielded — last ${FIELDED_WINDOW_DAYS} days</h4><p>Models with a release date in this window. The <span class="tag preview" style="margin:0">preliminary</span> tag marks ones where the data source backing this task’s score is still thin. Preliminary models are excluded from the recommender top-3.</p>${inDashboardRows||'<div style="color:var(--dim)">No new models in dashboard window yet.</div>'}${sectionB}`;
-  el.innerHTML=` · <span class="warn" data-pop="fielded" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${total} new model${total===1?'':'s'} fielded</span>`;
+  el.innerHTML=`<span class="warn" data-pop="fielded" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${total} new model${total===1?'':'s'} fielded</span>`;
 }
 function syncMobileSummary(){
   const task=taskSel();
