@@ -2,6 +2,30 @@
   "threshold": 45,
   "candidates": [
     {
+      "base": "DeepSeek-V4-Pro-DSpark",
+      "creator": "DeepSeek",
+      "max_intel": null,
+      "release_date": "2026-06-27",
+      "newer_than_our": null,
+      "sources": [
+        "hf"
+      ],
+      "hf_id": "deepseek-ai/DeepSeek-V4-Pro-DSpark",
+      "hf_downloads": 0
+    },
+    {
+      "base": "DeepSeek-V4-Flash-DSpark",
+      "creator": "DeepSeek",
+      "max_intel": null,
+      "release_date": "2026-06-27",
+      "newer_than_our": null,
+      "sources": [
+        "hf"
+      ],
+      "hf_id": "deepseek-ai/DeepSeek-V4-Flash-DSpark",
+      "hf_downloads": 0
+    },
+    {
       "base": "Qwen3-ForcedAligner-0.6B-hf",
       "creator": "Alibaba",
       "max_intel": null,
@@ -11,6 +35,18 @@
         "hf"
       ],
       "hf_id": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+      "hf_downloads": 0
+    },
+    {
+      "base": "c-fast-foundationstereo",
+      "creator": "NVIDIA",
+      "max_intel": null,
+      "release_date": "2026-06-26",
+      "newer_than_our": null,
+      "sources": [
+        "hf"
+      ],
+      "hf_id": "nvidia/c-fast-foundationstereo",
       "hf_downloads": 0
     },
     {
@@ -107,17 +143,6 @@
       ],
       "hf_id": "microsoft/FastContext-1.0-4B-SFT",
       "hf_downloads": 5735
-    },
-    {
-      "base": "Kimi K2.7 Code",
-      "creator": "Moonshot",
-      "max_intel": null,
-      "release_date": "2026-06-12",
-      "newer_than_our": null,
-      "sources": [
-        "openrouter"
-      ],
-      "or_id": "moonshotai/kimi-k2.7-code"
     }
   ]
 }
