@@ -872,10 +872,12 @@ function readState(){
   syncSliderLabels();  // ensure labels match restored slider values
 }
 function writeState(){
-  const q=new URLSearchParams();
+  // Start from the CURRENT query so params we don't own (esp. ?client=) survive — writing
+  // filter state must never strip the client selector, or IN links silently fall back to Desai.
+  const q=new URLSearchParams(location.search);
   q.set('cache',$('#cache').value); q.set('batch',$('#batch').value);
   q.set('floor',$('#floor').value); q.set('task',taskSel());
-  if($('#enterprise').checked)q.set('ent','1');
+  if($('#enterprise').checked)q.set('ent','1'); else q.delete('ent');
   history.replaceState(null,'','?'+q.toString());
 }
 function constraints(){
